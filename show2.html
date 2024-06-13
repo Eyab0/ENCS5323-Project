@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network Throughput Calculation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.8;
+            margin: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        h2 {
+            color: #444;
+            border-bottom: 2px solid #ccc;
+            padding-bottom: 5px;
+        }
+        .equation {
+            font-family: 'Courier New', Courier, monospace;
+            background: #f9f9f9;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+        .highlight {
+            background: #ffffcc;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+        .hidden {
+            display: none;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        @media screen and (max-width: 600px) {
+            .equation {
+                font-size: 16px;
+            }
+        }
+    </style>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Network Throughput Calculation</h1>
+        <button id="toggleButton">Show Explanation</button>
+        <div id="explanation" class="hidden">
+            <h2>Given Data:</h2>
+            <ul>
+                <li>Path Loss (\( L_p \)): <span class="highlight">140 dB</span></li>
+                <li>Frequency (\( f \)): <span class="highlight">900 MHz</span></li>
+                <li>Transmit Antenna Gain (\( G_t \)): <span class="highlight">8 dB</span></li>
+                <li>Receive Antenna Gain (\( G_r \)): <span class="highlight">0 dB</span></li>
+                <li>Data Rate (\( R \)): <span class="highlight">9.6 kbps</span></li>
+                <li>Antenna Feed Line Loss (\( L_f \)): <span class="highlight">12 dB</span></li>
+                <li>Other Losses (\( L_o \)): <span class="highlight">20 dB</span></li>
+                <li>Fade Margin (\( M \)): <span class="highlight">8 dB</span></li>
+                <li>Receiver Amplifier Gain (\( A_r \)): <span class="highlight">24 dB</span></li>
+                <li>Noise Figure (\( N_f \)): <span class="highlight">6 dB</span></li>
+                <li>Noise Temperature (\( T \)): <span class="highlight">290 K</span></li>
+            </ul>
+            
+            <h2>Steps to Solve:</h2>
+            <ol>
+                <li><strong>Determine \( \frac{E_b}{N_0} \):</strong>
+                    <div class="equation">
+                        For 8-PSK modulation with a BER of \(10^{-4}\), from standard tables or curves, the required \( \frac{E_b}{N_0} \) is approximately 12 dB.
+                    </div>
+                </li>
+                <li><strong>Convert \( \frac{E_b}{N_0} \) to Linear Scale:</strong>
+                    <div class="equation">
+                        \( 12 \text{ dB} = 10^{12/10} = 15.85 \)
+                    </div>
+                </li>
+                <li><strong>Calculate Noise Power \( N_0 \):</strong>
+                    <div class="equation">
+                        \( N_0 = k \times T = 1.38 \times 10^{-23} \times 290 = 4 \times 10^{-21} \, \text{W/Hz} \)
+                    </div>
+                </li>
+                <li><strong>Calculate Total Noise Power \( N \):</strong>
+                    <div class="equation">
+                        \( N = N_0 \times R = 4 \times 10^{-21} \times 9.6 \times 10^3 = 3.84 \times 10^{-17} \, \text{W} \)<br>
+                        Convert to dB:<br>
+                        \( N \, \text{(dB)} = 10 \log_{10}(3.84 \times 10^{-17}) \approx -154.15 \, \text{dBW} \)
+                    </div>
+                </li>
+                <li><strong>Calculate Received Power \( P_r \):</strong>
+                    <div class="equation">
+                        Using:<br>
+                        \( \frac{E_b}{N_0} = \frac{P_r \times M \times A_B}{k \times T \times R} \)<br>
+                        Convert everything to dB and rearrange for \( P_r \):<br>
+                        \( P_r \, \text{(dB)} = 12 + (-228.6) + 24 + 6 + 3.98 + 8 \approx -138.15 \, \text{dBW} \)
+                    </div>
+                </li>
+                <li><strong>Calculate Total Transmit Power (\( P_t \)):</strong>
+                    <div class="equation">
+                        Using:<br>
+                        \( P_t = P_r + L_p + L_f + L_o - G_t - G_r + L_m \)<br>
+                        Substituting the given values:<br>
+                        \( P_t = -138.15 + 140 + 12 + 20 - 8 - 0 + 8 = 33.85 \, \text{dBW} \)<br>
+                        Convert \( P_t \) from dBW to watts:<br>
+                        \( P_t = 10^{33.85/10} \approx 2.41 \times 10^3 \approx 2.4 \, \text{Watts} \)
+                    </div>
+                </li>
+            </ol>
+            
+            <h2>Conclusion:</h2>
+            <p>Therefore, the total transmit power required for an 8-PSK modulated signal with a maximum bit error rate of \(10^{-4}\) in the given environment is approximately <strong>2.4 Watts</strong>.</p>
+        </div>
+    </div>
+    <script>
+        document.getElementById('toggleButton').addEventListener('click', function() {
+            var explanation = document.getElementById('explanation');
+            if (explanation.classList.contains('hidden')) {
+                explanation.classList.remove('hidden');
+                this.textContent = 'Hide Explanation';
+            } else {
+                explanation.classList.add('hidden');
+                this.textContent = 'Show Explanation';
+            }
+        });
+    </script>
+</body>
+</html>
