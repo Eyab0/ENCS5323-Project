@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            line-height: 1.6;
+            line-height: 1.8;
             margin: 20px;
         }
         .container {
@@ -52,7 +52,7 @@
             color: white;
             border: none;
             border-radius: 5px;
-            font-size: 16px;
+            font-size: 18px;
             cursor: pointer;
             margin-bottom: 20px;
         }
@@ -61,7 +61,7 @@
         }
         @media screen and (max-width: 600px) {
             .equation {
-                font-size: 14px;
+                font-size: 16px;
             }
         }
     </style>
@@ -85,37 +85,37 @@
             <ol>
                 <li><strong>Calculate the transmission time per bit (\( T_b \)):</strong>
                     <div class="equation">
-                        \( T_b = \frac{1}{F} = \frac{1}{20M} \)<br>
-                        \( T_b = \frac{1}{20 \times 10^6} = 0.05 \times 10^{-6} \text{ seconds} = 0.05 \mu\text{s} \)
+                        \( T_b = \frac{1}{F} = \frac{1}{20M} \)<br><br>
+                        \( T_b = \frac{1}{20 \times 10^6} = 0.05 \times 10^{-6} \text{ seconds} = 0.05 \mu\text{s} \)<br>
                     </div>
                 </li>
                 <li><strong>Calculate the frame transmission time (\( T_{\text{frame}} \)):</strong>
                     <div class="equation">
-                        \( T_{\text{frame}} = \text{Frame Size} \times T_b \)<br>
-                        \( T_{\text{frame}} = 10K \times \frac{1}{20M} \)<br>
-                        \( T_{\text{frame}} = 10 \times 10^3 \times 0.05 \times 10^{-6} = 0.5 \times 10^{-3} \text{ seconds} = 0.5 \text{ msec} \)
+                        \( T_{\text{frame}} = \text{Frame Size} \times T_b \)<br><br>
+                        \( T_{\text{frame}} = 10K \times \frac{1}{20M} \)<br><br>
+                        \( T_{\text{frame}} = 10 \times 10^3 \times 0.05 \times 10^{-6} = 0.5 \times 10^{-3} \text{ seconds} = 0.5 \text{ msec} \)<br>
                     </div>
                 </li>
                 <li><strong>Calculate the normalized load (\( G \)):</strong>
                     <div class="equation">
-                        \( G = g \times T_{\text{frame}} \)<br>
-                        \( G = 5K \times 0.5 \times 10^{-3} = 2.5 \)
+                        \( G = g \times T_{\text{frame}} \)<br><br>
+                        \( G = 5K \times 0.5 \times 10^{-3} = 2.5 \)<br>
                     </div>
                 </li>
                 <li><strong>Determine the parameter \( \alpha \):</strong>
                     <div class="equation">
-                        \( \alpha = \frac{\tau}{T_{\text{frame}}} \)<br>
+                        \( \alpha = \frac{\tau}{T_{\text{frame}}} \)<br><br>
                         \( \alpha = \frac{40 \times 10^{-6}}{0.5 \times 10^{-3}} = 0.08 \)
                     </div>
                 </li>
                 <li><strong>Calculate the throughput (\( S_{\text{th}} \)):</strong>
                     <div class="equation">
-                        \( S_{\text{th}} = \frac{G e^{-2\alpha G}}{G(1+2\alpha) + e^{-\alpha G}} \)<br>
-                        Plugging in the values:<br>
+                        \( S_{\text{th}} = \frac{G e^{-2\alpha G}}{G(1+2\alpha) + e^{-\alpha G}} \)<br><br>
+                        Plugging in the values:<br> <br>
                         \( S_{\text{th}} = \frac{2.5 e^{-2 \times 0.08 \times 2.5}}{2.5 (1 + 2 \times 0.08) + e^{-0.08 \times 2.5}} \)<br>
-                        Simplifying:<br>
-                        \( S_{\text{th}} = \frac{2.5 e^{-0.4}}{2.5 (1 + 0.16) + e^{-0.2}} \)<br>
-                        \( S_{\text{th}} = \frac{2.5 \times 0.67032}{2.5 \times 1.16 + 0.81873} \)<br>
+                        Simplifying:<br><br>
+                        \( S_{\text{th}} = \frac{2.5 e^{-0.4}}{2.5 (1 + 0.16) + e^{-0.2}} \)<br><br>
+                        \( S_{\text{th}} = \frac{2.5 \times 0.67032}{2.5 \times 1.16 + 0.81873} \)<br><br>
                         \( S_{\text{th}} = \frac{1.6758}{2.9 + 0.81873} = \frac{1.6758}{3.71873} \approx 0.4505 \)
                     </div>
                 </li>
