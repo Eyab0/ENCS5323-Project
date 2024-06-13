@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Combined Calculator</title>
+    <style>
+        /* Styles for the combined calculator */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 600px;
+        }
+        h1, h2 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        .form-group {
+            margin-bottom: 10px;
+        }
+        label {
+            margin: 10px 0 5px;
+            width: 100%;
+        }
+        input, select {
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            flex-grow: 1;
+        }
+        button {
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            background-color: #28a745;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 1.2em;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Combined Calculator</h1>
+        
+        <!-- Question 4: Transmit Power Calculator -->
+        <h2>Question 4: Transmit Power Calculator</h2>
+        <form id="calcForm">
+            <div class="form-group">
+                <label for="Lp">Path Loss:</label>
+                <input type="text" id="Lp">
+                <select id="LpUnit">
+                    <option value="db">dB</option>
+                    <option value="dbm">dBm</option>
+                    <option value="linear">linear</option>
+                </select>
+            </div>
+    
+            <div class="form-group">
+                <label for="f">Frequency (MHz):</label>
+                <input type="text" id="f">
+            </div>
+    
+            <div class="form-group">
+                <label for="Gt">Transmit Antenna Gain:</label>
+                <input type="text" id="Gt">
+                <select id="GtUnit">
+                    <option value="db">dB</option>
+                    <option value="dbm">dBm</option>
+                    <option value="linear">linear</option>
+                </select>
+            </div>
+    
+            <div class="form-group">
+                <label for="Gr">Receive Antenna Gain:</label>
+                <input type="text" id="Gr">
+                <select id="GrUnit">
+                    <option value="db">dB</option>
+                    <option value="dbm">dBm</option>
+                    <option value="linear">linear</option>
+                </select>
+            </div>
+    
+            <div class="form-group">
+                <label for="R">Data Rate (kbps):</label>
+                <input type="text" id="R">
+                <select id="RUnit">
+                    <option value="db">dB</option>
+                    <option value="dbm">dBm</option>
+                    <option value="linear">linear</option>
+                </select>
+            </div>
+    
+            <div class="form-group">
+                <label for="Lf">Antenna Feed Line Loss:</label>
+                <input type="text" id="Lf">
+                <select id="LfUnit">
+                    <option value="db">dB</option>
+                    <option value="dbm">dBm</option>
+                    <option value="linear">linear</option>
+                </select>
+            </div>
+    
+            <div class="form-group">
+                <label for="Lo">Other Losses:</label>
+                <input type="text" id="Lo">
+                <select id="LoUnit">
+                    <option value="db">dB</option>
+                    <option value="dbm">dBm</option>
+                    <option value="linear">linear</option>
+                </select>
+            </div>
+    
+            <div class="form-group">
+                <label for="M">Fade Margin:</label>
+                <input type="text" id="M">
+                <select id="MUnit">
+                    <option value="db">dB</option>
+                    <option value="dbm">dBm</option>
+                    <option value="linear">linear</option>
+                </select>
+            </div>
+    
+            <div class="form-group">
+                <label for="Ar">Receiver Amplifier Gain:</label>
+                <input type="text" id="Ar">
+                <select id="ArUnit">
+                    <option value="db">dB</option>
+                    <option value="dbm">dBm</option>
+                    <option value="linear">linear</option>
+                </select>
+            </div>
+    
+            <div class="form-group">
+                <label for="Nf">Noise Figure:</label>
+                <input type="text" id="Nf">
+                <select id="NfUnit">
+                    <option value="db">dB</option>
+                    <option value="dbm">dBm</option>
+                    <option value="linear">linear</option>
+                </select>
+            </div>
+    
+            <div class="form-group">
+                <label for="link_margin">Link Margin:</label>
+                <input type="text" id="link_margin">
+                <select id="link_marginUnit">
+                    <option value="db">dB</option>
+                    <option value="dbm">dBm</option>
+                    <option value="linear">linear</option>
+                </select>
+            </div>
+    
+            <div class="form-group">
+                <label for="EbN0_dB">Eb/N0 for 8-PSK at BER 10^-4:</label>
+                <input type="text" id="EbN0_dB">
+                <select id="EbN0_dBUnit">
+                    <option value="db">dB</option>
+                    <option value="dbm">dBm</option>
+                    <option value="linear">linear</option>
+                </select>
+            </div>
+    
+            <div class="form-group">
+                <input type="button" value="Calculate" onclick="calculateTransmitPower()">
+            </div>
+        </form>
+        <p id="result"></p>
+        
+        <!-- Question 5: Network Throughput Calculator -->
+        <h2>Question 5: Network Throughput Calculator</h2>
+        <form id="throughputForm">
+            <div class="form-group">
+                <label for="bandwidth">Bandwidth (in Mbps):</label>
+                <input type="number" id="bandwidth" required>
+            </div>
+    
+            <div class="form-group">
+                <label for="propagationTime">Maximum Signal Propagation Time (in microseconds):</label>
+                <input type="number" id="propagationTime" required>
+            </div>
+    
+            <div class="form-group">
+                <label for="frameSize">Frame Size (in Kbits):</label>
+                <input type="number" id="frameSize" required>
+            </div>
+    
+            <div class="form-group">
+                <label for="frameRate">Frame Rate (in Kfps):</label>
+                <input type="number" id="frameRate" required>
+            </div>
+    
+            <div class="form-group">
+                <button type="submit">Calculate Throughput</button>
+            </div>
+        </form>
+        <div id="result"></div>
+    </div>
+    
+    <script>
+        // JavaScript for network throughput calculation
+        document.getElementById('throughputForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+    
+            // Get input values
+            const BW = parseFloat(document.getElementById('bandwidth').value);
+            const tau = parseFloat(document.getElementById('propagationTime').value);
+            const frameSize = parseFloat(document.getElementById('frameSize').value);
+            const frameRate = parseFloat(document.getElementById('frameRate').value);
+    
+            // Calculate throughput
+            const throughput = calculateThroughput(BW, tau, frameSize, frameRate);
+    
+            // Display result
+            document.getElementById('result').innerText = `The throughput of the network is approximately ${throughput.toFixed(2)}%`;
+        });
+    
+        function calculateThroughput(BW, tau, frameSize, frameRate) {
+            // Convert inputs to appropriate units
+            const BW_bps = BW * 10**6;  // Bandwidth in bps
+            const tau_sec = tau * 10**-6;  // Propagation time in seconds
+            const frameSize_bits = frameSize * 10**3;  // Frame size in bits
+            // Frame size in bits
+
+            // Calculate the transmission time per bit
+            const T_b = 1 / BW_bps;
+
+            // Calculate the frame transmission time
+            const T_frame = frameSize_bits * T_b;
+
+            // Calculate the normalized load
+            const G = frameRate * T_frame;
+
+            // Calculate alpha
+            const alpha = tau_sec / T_frame;
+
+            // Calculate throughput using the formula for nonpersistent CSMA
+            const S_th = (G * Math.exp(-2 * alpha * G)) / (G * (1 + 2 * alpha) + Math.exp(-alpha * G));
+
+            // Convert throughput to percentage
+            const throughput_percentage = S_th * 100;
+
+            return throughput_percentage;
+        }
+
+        // JavaScript for transmit power calculation
+        function dbToLinear(db) {
+            return Math.pow(10, db / 10);
+        }
+
+        function linearToDb(linear) {
+            return 10 * Math.log10(linear);
+        }
+
+        function dbmToWatts(dbm) {
+            return Math.pow(10, (dbm - 30) / 10);
+        }
+
+        function wattsToDbm(watts) {
+            return 10 * Math.log10(watts) + 30;
+        }
+
+        function askInput(value, unit) {
+            if (unit === "db") {
+                return parseFloat(value);
+            } else if (unit === "dbm") {
+                return linearToDb(dbmToWatts(parseFloat(value)));
+            } else {
+                return linearToDb(parseFloat(value));
+            }
+        }
+
+        function calculateTransmitPower() {
+            const k = 1.38e-23; // Boltzmann's constant in J/K
+            const T = 290;      // Noise temperature in Kelvin
+
+            const Lp = askInput(document.getElementById("Lp").value, document.getElementById("LpUnit").value);
+            const f = parseFloat(document.getElementById("f").value);
+            const Gt = askInput(document.getElementById("Gt").value, document.getElementById("GtUnit").value);
+            const Gr = askInput(document.getElementById("Gr").value, document.getElementById("GrUnit").value);
+            const R = parseFloat(document.getElementById("R").value) * 1e3; // Convert kbps to bps
+            const Lf = askInput(document.getElementById("Lf").value, document.getElementById("LfUnit").value);
+            const Lo = askInput(document.getElementById("Lo").value, document.getElementById("LoUnit").value);
+            const M = askInput(document.getElementById("M").value, document.getElementById("MUnit").value);
+            const Ar = askInput(document.getElementById("Ar").value, document.getElementById("ArUnit").value);
+            const Nf = askInput(document.getElementById("Nf").value, document.getElementById("NfUnit").value);
+            const link_margin = askInput(document.getElementById("link_margin").value, document.getElementById("link_marginUnit").value);
+            const EbN0_dB = askInput(document.getElementById("EbN0_dB").value, document.getElementById("EbN0_dBUnit").value);
+
+            const EbN0_linear = dbToLinear(EbN0_dB);
+
+            const N0 = k * T;
+            const N = N0 * R;
+            const N_db = linearToDb(N);
+
+            const Pr_dB = EbN0_dB + N_db - (Ar + 228.6 - Nf - link_margin - M);
+            const Pt_dB = Pr_dB + Lp + Lf + Lo - Gt - Gr + link_margin;
+            const Pt_watts = dbToLinear(Pt_dB);
+            const Pt_dbm = wattsToDbm(Pt_watts);
+
+            document.getElementById("result").innerText = `The total transmit power required is ${Pt_dB.toFixed(2)} dB, ${Pt_dbm.toFixed(2)} dBm, or ${Pt_watts.toFixed(2)} watts.`;
+        }
+    </script>
+</body>
+</html>
