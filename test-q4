@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Network Throughput Calculator</title>
+    <style>
+         body {
+            font-family: Arial, sans-serif;
+            line-height: 1.8;
+            margin: 20px;
+            background-image: url("back.jpg"); 
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        .container {
+            width: 50%;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #f9f9f9;
+
+            background-color: white;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .input-group {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+        }
+        .txtPost, .selectPost {
+            display: block;
+            width: 70%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .selectPost {
+            width: 30%;
+            margin-left: 10px;
+        }
+        .btnPost {
+            display: block;
+            width: 100%;
+            margin: 20px 0;
+            padding: 10px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            box-sizing: border-box;
+        }
+        .btnBlue {
+            background-color: #007BFF;
+        }
+        .btnPost:hover {
+            opacity: 0.8;
+        }
+        #result {
+            text-align: center;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Network Throughput Calculator</h1>
+        <form id="throughputForm">
+            <div class="input-group">
+                <input type="number" class="txtPost" id="BW" placeholder="Bandwidth" required />
+                <select class="selectPost" id="BWUnit">
+                    <option value="Mbps">Mbps</option>
+                    <option value="Kbps">Kbps</option>
+                    <option value="Gbps">Gbps</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <input type="number" class="txtPost" id="tau" placeholder="Propagation Time" required />
+                <select class="selectPost" id="tauUnit">
+                    <option value="microseconds">microseconds</option>
+                    <option value="milliseconds">milliseconds</option>
+                    <option value="seconds">seconds</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <input type="number" class="txtPost" id="frameSize" placeholder="Frame Size" required />
+                <select class="selectPost" id="frameSizeUnit">
+                    <option value="Kbits">Kbits</option>
+                    <option value="Mbits">Mbits</option>
+                    <option value="Gbits">Gbits</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <input type="number" class="txtPost" id="frameRate" placeholder="Frame Rate" required />
+                <select class="selectPost" id="frameRateUnit">
+                    <option value="Kfps">Kfps</option>
+                    <option value="Mfps">Mfps</option>
+                    <option value="Gfps">Gfps</option>
+                </select>
+            </div>
+            <button type="submit" class="btnPost btnBlue">Calculate Throughput</button>
+        </form>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        document.getElementById("throughputForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent form submission
+
+            const BW = parseFloat(document.getElementById("BW").value);
+            const BWUnit = document.getElementById("BWUnit").value;
+            const tau = parseFloat(document.getElementById("tau").value);
+            const tauUnit = document.getElementById("tauUnit").value;
+            const frameSize = parseFloat(document.getElementById("frameSize").value);
+            const frameSizeUnit = document.getElementById("frameSizeUnit").value;
+            const frameRate = parseFloat(document.getElementById("frameRate").value);
+            const frameRateUnit = document.getElementById("frameRateUnit").value;
+
+            // Ensure all fields are filled out
+            if (isNaN(BW) || isNaN(tau) || isNaN(frameRate) || isNaN(frameSize)) {
+                return;
+            }
+
+            // Convert input values to appropriate units
+            let BW_bps;
+            switch (BWUnit) {
+                case 'Kbps':
+                    BW_bps = BW * 1e3;
+                    break;
+                case 'Mbps':
+                    BW_bps = BW * 1e6;
+                    break;
+                case 'Gbps':
+                    BW_bps = BW * 1e9;
+                    break;
+                default:
+                    BW_bps = BW * 1e6; // Default to Mbps
+            }
+
+            let tau_sec;
+            switch (tauUnit) {
+                case 'microseconds':
+                    tau_sec = tau * 1e-6;
+                    break;
+                case 'milliseconds':
+                    tau_sec = tau * 1e-3;
+                    break;
+                case 'seconds':
+                    tau_sec = tau;
+                    break;
+                default:
+                    tau_sec = tau * 1e-6; // Default to microseconds
+            }
+
+            let frameSize_bits;
+            switch (frameSizeUnit) {
+                case 'Kbits':
+                    frameSize_bits = frameSize * 1e3;
+                    break;
+                case 'Mbits':
+                    frameSize_bits = frameSize * 1e6;
+                    break;
+                case 'Gbits':
+                    frameSize_bits = frameSize * 1e9;
+                    break;
+                default:
+                    frameSize_bits = frameSize * 1e3; // Default to Kbits
+            }
+
+            let frameRate_fps;
+            switch (frameRateUnit) {
+                case 'Kfps':
+                    frameRate_fps = frameRate * 1e3;
+                    break;
+                case 'Mfps':
+                    frameRate_fps = frameRate * 1e6;
+                    break;
+                case 'Gfps':
+                    frameRate_fps = frameRate * 1e9;
+                    break;
+                default:
+                    frameRate_fps = frameRate * 1e3; // Default to Kfps
+            }
+
+            // Calculate the transmission time per bit
+            const T_b = 1 / BW_bps;
+            console.log("Tb:", T_b);
+
+            // Calculate the frame transmission time
+            const T_frame = frameSize_bits * T_b;
+            console.log("T_frame:", T_frame);
+
+            // Calculate the normalized load
+            const G = frameRate_fps * T_frame;
+            console.log("G:", G);
+
+            // Calculate alpha
+            const alpha = tau_sec / T_frame;
+            console.log("alpha:", alpha);
+
+            // Calculate throughput using the formula for nonpersistent CSMA
+            const exp_term = Math.exp(-2 * alpha * T_frame);
+            console.log("exp_term:", exp_term);
+            console.log("(G * (1 + 2 * alpha) * Math.exp(-alpha * G)):", (G * (1 + 2 * alpha) * Math.exp(-alpha * G)));
+
+            const S_th = (G * exp_term) / (G * (1 + 2 * alpha) + Math.exp(-alpha * G));
+            console.log("S_th:", S_th);
+
+            // Convert throughput to percentage
+            const throughput_percentage = S_th * 100;
+
+            document.getElementById("result").innerText = "Throughput: " + throughput_percentage.toFixed(2) + " %";
+        });
+    </script>
+</body>
+</html>
