@@ -61,6 +61,22 @@
             margin-bottom: 20px;
         }
 
+        .equation {
+            font-family: 'Courier New', Courier, monospace;
+            background: #f9f9f9;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+
+        .highlight {
+            background: #ffffcc;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+
         .btnPost {
             background-color: #4CAF50;
         }
@@ -94,6 +110,13 @@
         </div>
 
         <div class="input-group">
+            <input type="text" class="txtPost" id="f" placeholder="Frequency (MHz)" required/>
+            <select class="selectPost" id="fUnit">
+                <option value="MHz">MHz</option>
+            </select>
+        </div>
+
+        <div class="input-group">
             <input type="text" class="txtPost" id="Gt" placeholder="Transmit Antenna Gain" required/>
             <select class="selectPost" id="GtUnit">
                 <option value="db">dB</option>
@@ -112,9 +135,7 @@
         <div class="input-group">
             <input type="text" class="txtPost" id="R" placeholder="Data Rate (kbps)" required/>
             <select class="selectPost" id="RUnit">
-                <option value="db">dB</option>
-                <option value="dbm">dBm</option>
-                <option value="linear">linear</option>
+                <option value="kbps">kbps</option>
             </select>
         </div>
         <div class="input-group">
@@ -172,64 +193,17 @@
         <button type="submit" class="btnPost btnBlue">Calculate Transmit Power</button>
     </form>
     <div id="result"></div>
+    <button onclick="Explanation();">
+        Show Explanation!
+    </button>
+
+    <div id="explain">
+    </div>
 </div>
 
-<script>
-    document.getElementById('calcForm').addEventListener('submit', function (event) {
-        event.preventDefault();
-        calculateTransmitPower();
-    });
 
-    function dbToLinear(db) {
-        return Math.pow(10, db / 10);
-    }
-
-    function linearToDb(linear) {
-        return 10 * Math.log10(linear);
-    }
-
-    function dbmToWatts(dbm) {
-        return Math.pow(10, (dbm - 30) / 10);
-    }
-
-    function wattsToDbm(watts) {
-        return 10 * Math.log10(watts) + 30;
-    }
-
-    function askInput(value, unit) {
-        if (unit === "db") {
-            return parseFloat(value);
-        } else if (unit === "dbm") {
-            return linearToDb(dbmToWatts(parseFloat(value)));
-        } else {
-            return linearToDb(parseFloat(value));
-        }
-    }
-
-    function calculateTransmitPower() {
-        const k_dB = -228.6;  // Boltzmann's constant in dB
-        const T_dB = 10 * Math.log10(290);  // Noise temperature in dB
-        const EbN0_dB = parseFloat(document.getElementById("EbN0_dB").value);  // Required Eb/N0 in dB for 8-PSK at BER = 10^-4
-
-        const Lp = askInput(document.getElementById("Lp").value, document.getElementById("LpUnit").value);
-        const f = parseFloat(document.getElementById("f").value) * 1e6; // Convert MHz to Hz
-        const Gt = askInput(document.getElementById("Gt").value, document.getElementById("GtUnit").value);
-        const Gr = askInput(document.getElementById("Gr").value, document.getElementById("GrUnit").value);
-        const R_dB = 10 * Math.log10(parseFloat(document.getElementById("R").value) * 1e3); // Convert kbps to bps and to dB
-        const Lf = askInput(document.getElementById("Lf").value, document.getElementById("LfUnit").value);
-        const Lo = askInput(document.getElementById("Lo").value, document.getElementById("LoUnit").value);
-        const M = parseFloat(document.getElementById("M").value);
-        const Ar = parseFloat(document.getElementById("Ar").value);
-        const Nf = parseFloat(document.getElementById("Nf").value);
-        const link_margin = parseFloat(document.getElementById("link_margin").value);
-
-        const Pr_dB = M + k_dB + T_dB + Nf + R_dB + EbN0_dB;
-        const Pt_dB = Pr_dB + Lp + Lf + Lo + link_margin - Gt - Gr - Ar;
-        const Pt_watts = dbToLinear(Pt_dB);
-        const Pt_dbm = wattsToDbm(Pt_watts);
-
-        document.getElementById("result").innerText = `The total transmit power required is ${Pt_dB.toFixed(2)} dB, ${Pt_dbm.toFixed(2)} dBm, or ${Pt_watts.toFixed(2)} watts.`;
-    }
-</script>
 </body>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="q3.js"></script>
 </html>

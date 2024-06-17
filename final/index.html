@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ENCS5323 Project</title>
+    <style>
+
+        /* styles.css */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f0f4f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url("back.jpg");
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        .container {
+            text-align: center;
+            background: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 80%;
+            max-width: 500px;
+            background-color: white;
+        }
+
+        h1 {
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .btn {
+            text-decoration: none;
+            color: white;
+            background-color: #007bff;
+            padding: 15px 0;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                width: 90%;
+            }
+
+            .btn {
+                font-size: 16px;
+            }
+        }
+
+
+    </style>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="container">
+    <h1>Wireless and Mobile Networks Online Calculater</h1>
+    <div class="button-container">
+        <a href="#question1" class="btn">Question 1</a>
+        <a href="#question2" class="btn">Question 2</a>
+        <a href="#question3" class="btn">Question 3</a>
+        <a href="#question4" class="btn">Question 4</a>
+        <a href="#question5" class="btn">Question 5</a>
+    </div>
+</div>
+</body>
+</html>
