@@ -14,6 +14,16 @@
             color: #333;
         }
 
+        .container {
+            width: 50%;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: white;
+        }
+
         .form-group {
             display: flex;
             align-items: center;
@@ -41,99 +51,102 @@
     </style>
 </head>
 <body>
-<h1>Transmit Power Calculator</h1>
-<form id="calcForm">
-    <div class="form-group">
-        <label for="Lp">Path Loss:</label>
-        <input type="text" id="Lp">
-        <select id="LpUnit">
-            <option value="db">dB</option>
-            <option value="dbm">dBm</option>
-            <option value="linear">linear</option>
-        </select>
-    </div>
+<div class="container">
+    <h1>Transmit Power Calculator</h1>
+    <form id="calcForm">
+        <div class="form-group">
+            <label for="Lp">Path Loss:</label>
+            <input type="text" id="Lp">
+            <select id="LpUnit">
+                <option value="db">dB</option>
+                <option value="dbm">dBm</option>
+                <option value="linear">linear</option>
+            </select>
+        </div>
 
-    <div class="form-group">
-        <label for="f">Frequency (MHz):</label>
-        <input type="text" id="f">
-    </div>
+        <div class="form-group">
+            <label for="f">Frequency (MHz):</label>
+            <input type="text" id="f">
+        </div>
 
-    <div class="form-group">
-        <label for="Gt">Transmit Antenna Gain:</label>
-        <input type="text" id="Gt">
-        <select id="GtUnit">
-            <option value="db">dB</option>
-            <option value="dbm">dBm</option>
-            <option value="linear">linear</option>
-        </select>
-    </div>
+        <div class="form-group">
+            <label for="Gt">Transmit Antenna Gain:</label>
+            <input type="text" id="Gt">
+            <select id="GtUnit">
+                <option value="db">dB</option>
+                <option value="dbm">dBm</option>
+                <option value="linear">linear</option>
+            </select>
+        </div>
 
-    <div class="form-group">
-        <label for="Gr">Receive Antenna Gain:</label>
-        <input type="text" id="Gr">
-        <select id="GrUnit">
-            <option value="db">dB</option>
-            <option value="dbm">dBm</option>
-            <option value="linear">linear</option>
-        </select>
-    </div>
+        <div class="form-group">
+            <label for="Gr">Receive Antenna Gain:</label>
+            <input type="text" id="Gr">
+            <select id="GrUnit">
+                <option value="db">dB</option>
+                <option value="dbm">dBm</option>
+                <option value="linear">linear</option>
+            </select>
+        </div>
 
-    <div class="form-group">
-        <label for="R">Data Rate (kbps):</label>
-        <input type="text" id="R">
-    </div>
+        <div class="form-group">
+            <label for="R">Data Rate (kbps):</label>
+            <input type="text" id="R">
+        </div>
 
-    <div class="form-group">
-        <label for="Lf">Antenna Feed Line Loss:</label>
-        <input type="text" id="Lf">
-        <select id="LfUnit">
-            <option value="db">dB</option>
-            <option value="dbm">dBm</option>
-            <option value="linear">linear</option>
-        </select>
-    </div>
+        <div class="form-group">
+            <label for="Lf">Antenna Feed Line Loss:</label>
+            <input type="text" id="Lf">
+            <select id="LfUnit">
+                <option value="db">dB</option>
+                <option value="dbm">dBm</option>
+                <option value="linear">linear</option>
+            </select>
+        </div>
 
-    <div class="form-group">
-        <label for="Lo">Other Losses:</label>
-        <input type="text" id="Lo">
-        <select id="LoUnit">
-            <option value="db">dB</option>
-            <option value="dbm">dBm</option>
-            <option value="linear">linear</option>
-        </select>
-    </div>
+        <div class="form-group">
+            <label for="Lo">Other Losses:</label>
+            <input type="text" id="Lo">
+            <select id="LoUnit">
+                <option value="db">dB</option>
+                <option value="dbm">dBm</option>
+                <option value="linear">linear</option>
+            </select>
+        </div>
 
-    <div class="form-group">
-        <label for="M">Fade Margin:</label>
-        <input type="text" id="M">
-    </div>
+        <div class="form-group">
+            <label for="M">Fade Margin:</label>
+            <input type="text" id="M">
+        </div>
 
-    <div class="form-group">
-        <label for="Ar">Receiver Amplifier Gain:</label>
-        <input type="text" id="Ar">
-    </div>
+        <div class="form-group">
+            <label for="Ar">Receiver Amplifier Gain:</label>
+            <input type="text" id="Ar">
+        </div>
 
-    <div class="form-group">
-        <label for="Nf">Noise Figure:</label>
-        <input type="text" id="Nf">
-    </div>
+        <div class="form-group">
+            <label for="Nf">Noise Figure:</label>
+            <input type="text" id="Nf">
+        </div>
 
-    <div class="form-group">
-        <label for="link_margin">Link Margin:</label>
-        <input type="text" id="link_margin">
-    </div>
+        <div class="form-group">
+            <label for="link_margin">Link Margin:</label>
+            <input type="text" id="link_margin">
+        </div>
 
-    <div class="form-group">
-        <label for="EbN0_dB">Eb/N0 for 8-PSK at BER 10^-4:</label>
-        <input type="text" id="EbN0_dB">
-    </div>
+        <div class="form-group">
+            <label for="EbN0_dB">Eb/N0 for 8-PSK at BER 10^-4:</label>
+            <input type="text" id="EbN0_dB">
+        </div>
 
-    <div class="form-group">
-        <input type="button" value="Calculate" onclick="calculateTransmitPower()">
-    </div>
-</form>
-<h2>Results</h2>
-<p id="result"></p>
+        <div class="form-group">
+            <input type="button" value="Calculate" onclick="calculateTransmitPower()">
+        </div>
+    </form>
+    <h2>Results</h2>
+    <p id="result"></p>
+
+</div>
 
 <script>
     function dbToLinear(db) {
