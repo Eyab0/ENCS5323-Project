@@ -4,7 +4,7 @@
 <head>
     <title>Network Throughput Calculator</title>
     <style>
-         body {
+        body {
             font-family: Arial, sans-serif;
             line-height: 1.8;
             margin: 20px;
@@ -12,6 +12,7 @@
             background-size: cover;
             background-repeat: no-repeat;
         }
+
         .container {
             width: 50%;
             margin: 0 auto;
@@ -21,15 +22,18 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             background-color: white;
         }
+
         h1 {
             text-align: center;
             color: #333;
         }
+
         .input-group {
             display: flex;
             align-items: center;
             margin: 10px 0;
         }
+
         .txtPost, .selectPost {
             display: block;
             width: 70%;
@@ -39,6 +43,7 @@
             border-radius: 4px;
             box-sizing: border-box;
         }
+
         .selectPost {
             width: 30%;
             margin-left: 10px;
@@ -54,7 +59,7 @@
             overflow-x: auto;
             font-size: 16px;
         }
-        
+
         button {
             display: block;
             width: 100%;
@@ -67,11 +72,13 @@
             cursor: pointer;
             margin-bottom: 20px;
         }
+
         .highlight {
             background: #ffffcc;
             padding: 2px 5px;
             border-radius: 3px;
         }
+
         .btnPost {
             display: block;
             width: 100%;
@@ -85,67 +92,70 @@
             cursor: pointer;
             box-sizing: border-box;
         }
+
         .btnBlue {
             background-color: #007BFF;
         }
+
         .btnPost:hover {
             opacity: 0.8;
         }
+
         #result {
             text-align: center;
             font-size: 20px;
             margin-top: 22px;
         }
-        
+
 
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Network Throughput Calculator</h1>
-        <form id="throughputForm">
-            <div class="input-group">
-                <input type="number" class="txtPost" id="BW" placeholder="Bandwidth" required />
-                <select class="selectPost" id="BWUnit">
-                    <option value="Mbps">Mbps</option>
-                    <option value="Kbps">Kbps</option>
-                    <option value="Gbps">Gbps</option>
-                </select>
-            </div>
-            <div class="input-group">
-                <input type="number" class="txtPost" id="tau" placeholder="Propagation Time" required />
-                <select class="selectPost" id="tauUnit">
-                    <option value="microseconds">microseconds</option>
-                    <option value="milliseconds">milliseconds</option>
-                    <option value="seconds">seconds</option>
-                </select>
-            </div>
-            <div class="input-group">
-                <input type="number" class="txtPost" id="frameSize" placeholder="Frame Size" required />
-                <select class="selectPost" id="frameSizeUnit">
-                    <option value="Kbits">Kbits</option>
-                    <option value="Mbits">Mbits</option>
-                    <option value="Gbits">Gbits</option>
-                </select>
-            </div>
-            <div class="input-group">
-                <input type="number" class="txtPost" id="frameRate" placeholder="Frame Rate" required />
-                <select class="selectPost" id="frameRateUnit">
-                    <option value="Kfps">Kfps</option>
-                    <option value="Mfps">Mfps</option>
-                    <option value="Gfps">Gfps</option>
-                </select>
-            </div>
-            <button type="submit" class="btnPost btnBlue">Calculate Throughput</button>
-        </form>
-        <div id="result"></div>
+<div class="container">
+    <h1>Network Throughput Calculator</h1>
+    <form id="throughputForm">
+        <div class="input-group">
+            <input type="number" class="txtPost" id="BW" placeholder="Bandwidth" required/>
+            <select class="selectPost" id="BWUnit">
+                <option value="Mbps">Mbps</option>
+                <option value="Kbps">Kbps</option>
+                <option value="Gbps">Gbps</option>
+            </select>
+        </div>
+        <div class="input-group">
+            <input type="number" class="txtPost" id="tau" placeholder="Propagation Time" required/>
+            <select class="selectPost" id="tauUnit">
+                <option value="microseconds">microseconds</option>
+                <option value="milliseconds">milliseconds</option>
+                <option value="seconds">seconds</option>
+            </select>
+        </div>
+        <div class="input-group">
+            <input type="number" class="txtPost" id="frameSize" placeholder="Frame Size" required/>
+            <select class="selectPost" id="frameSizeUnit">
+                <option value="Kbits">Kbits</option>
+                <option value="Mbits">Mbits</option>
+                <option value="Gbits">Gbits</option>
+            </select>
+        </div>
+        <div class="input-group">
+            <input type="number" class="txtPost" id="frameRate" placeholder="Frame Rate" required/>
+            <select class="selectPost" id="frameRateUnit">
+                <option value="Kfps">Kfps</option>
+                <option value="Mfps">Mfps</option>
+                <option value="Gfps">Gfps</option>
+            </select>
+        </div>
+        <button type="submit" class="btnPost btnBlue">Calculate Throughput</button>
+    </form>
+    <div id="result"></div>
 
-        
-        <button onclick="Explanation();">
-            Show Explanation!
-        </button>
 
-        <div id="explain">
+    <button onclick="Explanation();">
+        Show Explanation!
+    </button>
+
+    <div id="explain">
     </div>
 </div>
 
@@ -153,4 +163,4 @@
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 <script src="q4.js"></script>
-
+</html>
