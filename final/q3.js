@@ -1,73 +1,73 @@
-    document.getElementById('calcForm').addEventListener('submit', function (event) {
-        event.preventDefault();
-        calculateTransmitPower();
-    });
+document.getElementById('calcForm').addEventListener('submit', function (event) {
+    event.preventDefault();
+    calculateTransmitPower();
+});
 
-    function dbToLinear(db) {
-        return Math.pow(10, db / 10);
+function dbToLinear(db) {
+    return Math.pow(10, db / 10);
+}
+
+function linearToDb(linear) {
+    return 10 * Math.log10(linear);
+}
+
+function dbmToWatts(dbm) {
+    return Math.pow(10, (dbm - 30) / 10);
+}
+
+function wattsToDbm(watts) {
+    return 10 * Math.log10(watts) + 30;
+}
+
+function askInput(value, unit) {
+    if (unit === "db") {
+        return parseFloat(value);
+    } else if (unit === "dbm") {
+        return linearToDb(dbmToWatts(parseFloat(value)));
+    } else {
+        return linearToDb(parseFloat(value));
     }
+}
 
-    function linearToDb(linear) {
-        return 10 * Math.log10(linear);
-    }
+function calculateTransmitPower() {
+    const k_dB = -228.6;  // Boltzmann's constant in dB
+    const T_dB = 10 * Math.log10(290);  // Noise temperature in dB
+    const EbN0_dB = parseFloat(document.getElementById("EbN0_dB").value);  // Required Eb/N0 in dB for 8-PSK at BER 10^-4
+    const R_dB = 10 * Math.log10(parseFloat(document.getElementById("R").value));  // Data rate in dB
 
-    function dbmToWatts(dbm) {
-        return Math.pow(10, (dbm - 30) / 10);
-    }
+    const Lp_dB = askInput(document.getElementById("Lp").value, document.getElementById("LpUnit").value);  // Path loss
+    const Gt_dB = askInput(document.getElementById("Gt").value, document.getElementById("GtUnit").value);  // Transmit antenna gain
+    const Gr_dB = askInput(document.getElementById("Gr").value, document.getElementById("GrUnit").value);  // Receive antenna gain
+    const Lf_dB = askInput(document.getElementById("Lf").value, document.getElementById("LfUnit").value);  // Antenna feed line loss
+    const Lo_dB = askInput(document.getElementById("Lo").value, document.getElementById("LoUnit").value);  // Other losses
+    const M_dB = askInput(document.getElementById("M").value, document.getElementById("MUnit").value);  // Fade margin
+    const Ar_dB = askInput(document.getElementById("Ar").value, document.getElementById("ArUnit").value);  // Receiver amplifier gain
+    const Nf_dB = askInput(document.getElementById("Nf").value, document.getElementById("NfUnit").value);  // Noise figure
+    const link_margin_dB = askInput(document.getElementById("link_margin").value, document.getElementById("link_marginUnit").value);  // Link margin
 
-    function wattsToDbm(watts) {
-        return 10 * Math.log10(watts) + 30;
-    }
+    const power_received = k_dB + T_dB + EbN0_dB + R_dB;  // Noise floor in dB
 
-    function askInput(value, unit) {
-        if (unit === "db") {
-            return parseFloat(value);
-        } else if (unit === "dbm") {
-            return linearToDb(dbmToWatts(parseFloat(value)));
-        } else {
-            return linearToDb(parseFloat(value));
-        }
-    }
+    const Pt_dB = power_received + Lp_dB - Gt_dB - Gr_dB + Lf_dB + Lo_dB + M_dB - Ar_dB + Nf_dB + link_margin_dB;
 
-    function calculateTransmitPower() {
-        const k_dB = -228.6;  // Boltzmann's constant in dB
-        const T_dB = 10 * Math.log10(290);  // Noise temperature in dB
-        const EbN0_dB = parseFloat(document.getElementById("EbN0_dB").value);  // Required Eb/N0 in dB for 8-PSK at BER 10^-4
-        const R_dB = 10 * Math.log10(parseFloat(document.getElementById("R").value));  // Data rate in dB
+    const Pt = wattsToDbm(dbToLinear(Pt_dB));
 
-        const Lp_dB = askInput(document.getElementById("Lp").value, document.getElementById("LpUnit").value);  // Path loss
-        const Gt_dB = askInput(document.getElementById("Gt").value, document.getElementById("GtUnit").value);  // Transmit antenna gain
-        const Gr_dB = askInput(document.getElementById("Gr").value, document.getElementById("GrUnit").value);  // Receive antenna gain
-        const Lf_dB = askInput(document.getElementById("Lf").value, document.getElementById("LfUnit").value);  // Antenna feed line loss
-        const Lo_dB = askInput(document.getElementById("Lo").value, document.getElementById("LoUnit").value);  // Other losses
-        const M_dB = askInput(document.getElementById("M").value, document.getElementById("MUnit").value);  // Fade margin
-        const Ar_dB = askInput(document.getElementById("Ar").value, document.getElementById("ArUnit").value);  // Receiver amplifier gain
-        const Nf_dB = askInput(document.getElementById("Nf").value, document.getElementById("NfUnit").value);  // Noise figure
-        const link_margin_dB = askInput(document.getElementById("link_margin").value, document.getElementById("link_marginUnit").value);  // Link margin
+    document.getElementById("result").innerHTML = "Transmit Power (Pt) = " + Pt.toFixed(2) + " dBm";
+}
 
-        const power_received = k_dB + T_dB + EbN0_dB + R_dB;  // Noise floor in dB
+function Explanation() {
+    const Lp = document.getElementById("Lp").value;
+    const f = document.getElementById("f").value;
+    const Gt = document.getElementById("Gt").value;
+    const Gr = document.getElementById("Gr").value;
+    const R = document.getElementById("R").value;
+    const Lf = document.getElementById("Lf").value;
+    const Lo = document.getElementById("Lo").value;
+    const M = document.getElementById("M").value;
+    const Ar = document.getElementById("Ar").value;
+    const Nf = document.getElementById("Nf").value;
+    const T = 290; // Assuming standard noise temperature
 
-        const Pt_dB = power_received + Lp_dB - Gt_dB - Gr_dB + Lf_dB + Lo_dB + M_dB - Ar_dB + Nf_dB + link_margin_dB;
-
-        const Pt = wattsToDbm(dbToLinear(Pt_dB));
-
-        document.getElementById("result").innerHTML = "Transmit Power (Pt) = " + Pt.toFixed(2) + " dBm";
-    }
-
-    function Explanation() {
-        const Lp = document.getElementById("Lp").value;
-        const f = document.getElementById("f").value;
-        const Gt = document.getElementById("Gt").value;
-        const Gr = document.getElementById("Gr").value;
-        const R = document.getElementById("R").value;
-        const Lf = document.getElementById("Lf").value;
-        const Lo = document.getElementById("Lo").value;
-        const M = document.getElementById("M").value;
-        const Ar = document.getElementById("Ar").value;
-        const Nf = document.getElementById("Nf").value;
-        const T = 290; // Assuming standard noise temperature
-
-        let explanation = `
+    let explanation = `
             <h2>Given Data:</h2>
             <ul>
                 <li>Path Loss (\\( L_p \\)): <span class="highlight">${Lp} dB</span></li>
@@ -131,10 +131,12 @@
             <p>Therefore, the total transmit power required for an 8-PSK modulated signal with a maximum bit error rate of \\(10^{-4}\\) in the given environment is approximately <strong>2.4 Watts</strong>.</p>
         
 `;
-        document.getElementById("explain").innerHTML = explanation;
-        if (document.getElementById("explain").style.display === "none") {
-            document.getElementById("explain").style.display = "block";
-        } else {
-            document.getElementById("explain").style.display = "none";
-        }
-    }
+    document.getElementById('explain').innerHTML = explanation;
+    MathJax.typeset();
+    // document.getElementById("explain").innerHTML = explanation;
+    // if (document.getElementById("explain").style.display === "none") {
+    //     document.getElementById("explain").style.display = "block";
+    // } else {
+    //     document.getElementById("explain").style.display = "none";
+    // }
+}
