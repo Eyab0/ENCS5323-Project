@@ -182,7 +182,7 @@ function Explanation() {
     <ol>
         <li><strong>Determine \\( \\frac{E_b}{N_0} \\):</strong>
             <div class="equation">
-                For {8-PSK} modulation with a BER of {\\(10^{-4}\\)}, the required \\( \\frac{E_b}{N_0} \\) is approximately ${EbN0_dB} dB.
+                For ${document.getElementById('modulation-select').value} modulation with a BER of {\\(${document.getElementById('ber-select').value} \\)}, the required \\( \\frac{E_b}{N_0} \\) is approximately ${EbN0_dB} dB.
             </div>
         </li>
         
@@ -223,7 +223,7 @@ function Explanation() {
     </ol>
 
     <h2>Conclusion:</h2>
-    <p>Therefore, the total transmit power required for an 8-PSK modulated signal with a maximum bit error rate of \\(10^{-4}\\) in the given environment is approximately <strong>${Pt_watts.toFixed(2)} Watts</strong>.</p>
+    <p>Therefore, the total transmit power required for an ${document.getElementById('modulation-select').value} modulated signal with a maximum bit error rate of \\(${document.getElementById('ber-select').value}\\) in the given environment is approximately <strong>${Pt_watts.toFixed(2)} Watts</strong>.</p>
 `;
 
 
