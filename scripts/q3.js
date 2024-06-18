@@ -88,6 +88,12 @@ function Explanation() {
     const Pt_dB = Pr_dB + Lp + Lf + Lo - Gt - Gr + M;
     const Pt_watts = dbToLinear(Pt_dB);
 
+
+    const K1_dB = 228.6; // Boltzmann constant in dB (approximated value)
+    const T_dB = 10 * Math.log10(T); // Noise temperature in dB
+    const Nf1_dB = Nf; // Noise figure in dB (assuming Nf is already in dB)
+
+
     let explanation = `
     <h2>Given Data:</h2>
     <ul>
@@ -120,9 +126,13 @@ function Explanation() {
                 M = \\frac{P_r}{KTNR \\left( \\frac{E_b}{N_0} \\right)}
                 \\]
             </div>
-            
+               <div class="equation">
+                \\[
+                P_{r, dB} = M_{dB} + K_{1, dB} + T_{dB} + N_{f, 1, dB} + R_{dB} +\\\left( \\frac{E_b}{N_0} \\right)_{dB}
+                \\]
+            </div>
               <div class="equation">
-                    \\( P_r \\, \\text{(dB)} = ${EbN0_dB} + ${linearToDb(N0).toFixed(2)} + ${linearToDb(R * 1e3).toFixed(2)} \\approx ${Pr_dB.toFixed(2)} \\, \\text{dBW} \\)
+                \\( P_r \\, \\text{(dB)} = ${M} + ${K1_dB} + ${T_dB} + ${Nf1_dB} + ${linearToDb(R * 1e3).toFixed(2)} + ${EbN0_dB} \\approx ${Pr_dB.toFixed(2)} \\, \\text{dBW} \\)
                 </div>
         </li>
 
