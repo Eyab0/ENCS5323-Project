@@ -71,6 +71,11 @@ function Explanation() {
     const k = 1.38 * Math.pow(10, -23);
     // const EbN0_dB = 12; // Given as fixed value for BER of 10^-4
 
+    const K1_dB = 228.6; // Boltzmann constant in dB (approximated value)
+    const T_dB = 10 * Math.log10(T); // Noise temperature in dB
+    const Nf1_dB = Nf; // Noise figure in dB (assuming Nf is already in dB)
+
+
     // Convert Eb/N0 to linear scale
     const EbN0_linear = dbToLinear(EbN0_dB);
 
@@ -81,17 +86,13 @@ function Explanation() {
     const N = N0 * R * 1e3; // R in kbps, converting to bps
     const N_dB = linearToDb(N);
 
+
     // Calculate received power Pr
-    const Pr_dB = EbN0_dB + linearToDb(N0) + linearToDb(R * 1e3);
+    const Pr_dB = M + K1_dB + T_dB + Nf1_dB + EbN0_dB + linearToDb(N0) + linearToDb(R * 1e3);
 
     // Calculate total transmit power Pt
     const Pt_dB = Pr_dB + Lp + Lf + Lo - Gt - Gr + M;
     const Pt_watts = dbToLinear(Pt_dB);
-
-
-    const K1_dB = 228.6; // Boltzmann constant in dB (approximated value)
-    const T_dB = 10 * Math.log10(T); // Noise temperature in dB
-    const Nf1_dB = Nf; // Noise figure in dB (assuming Nf is already in dB)
 
 
     let explanation = `
