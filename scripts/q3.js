@@ -116,9 +116,9 @@ function calculateTransmitPower() {
 
     const Pt_dB = power_received + Lp_dB - Gt_dB - Gr_dB + Lf_dB + Lo_dB - Ar_dB + link_margin_dB;
 
-    const Pt = wattsToDbm(dbToLinear(Pt_dB));
+    // const Pt = wattsToDbm(dbToLinear(Pt_dB));
 
-    document.getElementById("result").innerHTML = "Transmit Power (Pt) = " + Pt.toFixed(2) + " dB";
+    document.getElementById("result").innerHTML = "Transmit Power (Pt) = " + Pt_dB.toFixed(2) + " dB";
 }
 
 function Explanation() {
