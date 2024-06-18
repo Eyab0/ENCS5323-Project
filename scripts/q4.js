@@ -1,4 +1,4 @@
-document.getElementById("throughputForm").addEventListener("submit", function(event) {
+document.getElementById("throughputForm").addEventListener("submit", function (event) {
     event.preventDefault(); // Prevent form submission
 
     const BW = parseFloat(document.getElementById("BW").value);
@@ -92,19 +92,46 @@ document.getElementById("throughputForm").addEventListener("submit", function(ev
     const alpha = tau_sec / T_frame;
     console.log("alpha:", alpha);
 
-    // Calculate throughput using the formula for nonpersistent CSMA
+    // Original unslotted nonpersistent CSMA throughput
     const exp_term = Math.exp(-2 * alpha * T_frame);
     console.log("exp_term:", exp_term);
     console.log("(G * (1 + 2 * alpha) * Math.exp(-alpha * G)):", (G * (1 + 2 * alpha) * Math.exp(-alpha * G)));
 
-    const S_th = (G * exp_term) / (G * (1 + 2 * alpha) + Math.exp(-alpha * G));
-    console.log("S_th:", S_th);
+    const S_th_unslotted = (G * exp_term) / (G * (1 + 2 * alpha) + Math.exp(-alpha * G));
+    console.log("S_th:", S_th_unslotted);
+
+    // Calculate throughput for slotted nonpersistent CSMA
+
+
+    const S_th_nonpersistent = slottedNonpersistentCSMA(alpha, G, T_frame);
+    const S_th_one_persistent = slottedOnePersistentCSMA(alpha, G);
 
     // Convert throughput to percentage
-    const throughput_percentage = S_th * 100;
+    const throughput_unslotted_percentage = S_th_unslotted * 100;
+    const throughput_nonpersistent_percentage = S_th_nonpersistent * 100;
+    const throughput_one_persistent_percentage = S_th_one_persistent * 100;
 
-    document.getElementById("result").innerHTML = "Throughput: <strong>" + throughput_percentage.toFixed(2) + " %</strong><br><br>";
+    document.getElementById("result").innerHTML =
+        "Unslotted Nonpersistent CSMA Throughput: <strong>" + throughput_unslotted_percentage.toFixed(2) + " %</strong><br>" +
+        "Slotted Nonpersistent CSMA Throughput: <strong>" + throughput_nonpersistent_percentage.toFixed(2) + " %</strong><br>" +
+        "Slotted 1-persistent CSMA Throughput: <strong>" + throughput_one_persistent_percentage.toFixed(2) + " %</strong><br>";
 });
+
+
+function slottedNonpersistentCSMA(alpha, G, T_frame) {
+    const numerator = alpha * G * Math.exp(-2 * alpha * T_frame);
+    const denominator = (1 - Math.exp(-alpha * G) + alpha);
+    const S_th = numerator / denominator;
+    return S_th;
+}
+
+// Calculate throughput for slotted 1-persistent CSMA
+function slottedOnePersistentCSMA(alpha, G) {
+    const numerator = G * (1 + alpha - Math.exp(-alpha * G)) * Math.exp(-G * (1 + alpha));
+    const denominator = (1 + alpha) * (1 - Math.exp(-alpha * G)) + alpha * Math.exp(-G * (1 + alpha));
+    const S_th = numerator / denominator;
+    return S_th;
+}
 
 
 function Explanation() {
@@ -187,8 +214,13 @@ function Explanation() {
     const G = frameRate_fps * T_frame;
     const alpha = tau_sec / T_frame;
     const exp_term = Math.exp(-2 * alpha * T_frame);
-    const S_th = (G * exp_term) / (G * (1 + 2 * alpha) + Math.exp(-alpha * G));
-    const throughput_percentage = S_th * 100;
+    const S_th_unslotted = (G * exp_term) / (G * (1 + 2 * alpha) + Math.exp(-alpha * G));
+    const throughput_percentage_unslotted = S_th_unslotted * 100;
+
+    const S_th_nonpersistent = slottedNonpersistentCSMA(alpha, G, T_frame);
+    const S_th_one_persistent = slottedOnePersistentCSMA(alpha, G);
+    const throughput_percentage_nonpersistent = S_th_nonpersistent * 100;
+    const throughput_percentage_one_persistent = S_th_one_persistent * 100;
 
     let explanation = `
         <h2>Given Data:</h2>
@@ -229,24 +261,57 @@ function Explanation() {
                     \\( \\alpha = ${alpha.toFixed(4)} \\)
                 </div>
             </li>
-            <li><strong>Calculate the throughput (\\( S_{\\text{th}} \\)):</strong>
+            <li><strong>Calculate the unslotted nonpersistent CSMA throughput (\\( S_{\\text{th}} \\)):</strong>
                 <div class="equation">
                     \\( S_{\\text{th}} = \\frac{G e^{-2\\alpha G}}{G(1+2\\alpha) + e^{-\\alpha G}} \\)<br>
                     <br><br>Plugging in the values:<br>
                     \\( S_{\\text{th}} = \\frac{${G.toFixed(4)} e^{-2 \\times ${alpha.toFixed(4)} \\times ${G.toFixed(4)}}}{${G.toFixed(4)}(1 + 2 \\times ${alpha.toFixed(4)}) + e^{- ${alpha.toFixed(4)} \\times ${G.toFixed(4)}}} \\)<br>
                    <br><br> Simplifying:<br>
-                    \\( S_{\\text{th}} = ${S_th.toFixed(4)} \\)
+                    \\( S_{\\text{th}} = ${S_th_unslotted.toFixed(4)} \\)
                 </div>
             </li>
-            <li><strong>Convert the throughput to a percentage:</strong>
+            <li><strong>Convert the unslotted nonpersistent CSMA throughput to a percentage:</strong>
                 <div class="equation">
-                    \\( \\text{Throughput in percent} = ${throughput_percentage.toFixed(2)}\\% \\)
+                    \\( \\text{Throughput in percent} = ${throughput_percentage_unslotted.toFixed(2)}\\% \\)
+                </div>
+            </li>
+            <li><strong>Calculate the slotted nonpersistent CSMA throughput (\\( S_{\\text{th}} \\)):</strong>
+                <div class="equation">
+                    \\( S_{\\text{th}} = \\frac{G e^{-G(1+2\\alpha)}}{(1+\\alpha)G + (1-\\alpha)e^{-G}} \\)<br>
+                    <br><br>Plugging in the values:<br>
+                    \\( S_{\\text{th}} = \\frac{${G.toFixed(4)} e^{-G(1+2\\alpha)}}{(1+\\alpha)${G.toFixed(4)} + (1-\\alpha)e^{-G}} \\)<br>
+                   <br><br> Simplifying:<br>
+                    \\( S_{\\text{th}} = ${S_th_nonpersistent.toFixed(4)} \\)
+                </div>
+            </li>
+            <li><strong>Convert the slotted nonpersistent CSMA throughput to a percentage:</strong>
+                <div class="equation">
+                    \\( \\text{Throughput in percent} = ${throughput_percentage_nonpersistent.toFixed(2)}\\% \\)
+                </div>
+            </li>
+            <li><strong>Calculate the slotted 1-persistent CSMA throughput (\\( S_{\\text{th}} \\)):</strong>
+                <div class="equation">
+                    \\( S_{\\text{th}} = \\frac{G (1+\\alpha - e^{-\\alpha G}) e^{-G(1+\\alpha)}}{(1+\\alpha)(1-e^{-\\alpha G}) + \\alpha e^{-G(1+\\alpha)}} \\)<br>
+                    <br><br>Plugging in the values:<br>
+                    \\( S_{\\text{th}} = \\frac{${G.toFixed(4)} (1+\\alpha - e^{-\\alpha G}) e^{-G(1+\\alpha)}}{(1+\\alpha)(1-e^{-\\alpha G}) + \\alpha e^{-G(1+\\alpha)}} \\)<br>
+                   <br><br> Simplifying:<br>
+                    \\( S_{\\text{th}} = ${S_th_one_persistent.toFixed(4)} \\)
+                </div>
+            </li>
+            <li><strong>Convert the slotted 1-persistent CSMA throughput to a percentage:</strong>
+                <div class="equation">
+                    \\( \\text{Throughput in percent} = ${throughput_percentage_one_persistent.toFixed(2)}\\% \\)
                 </div>
             </li>
         </ol>
 
         <h2>Result:</h2>
-        <p>Therefore, the throughput of the network, given the conditions provided, is approximately <strong>${throughput_percentage.toFixed(2)}%</strong>.</p>
+        <p>Therefore, the throughput of the network, given the conditions provided, is approximately:</p>
+        <ul>
+            <li>Unslotted Nonpersistent CSMA: <strong>${throughput_percentage_unslotted.toFixed(2)}%</strong></li>
+            <li>Slotted Nonpersistent CSMA: <strong>${throughput_percentage_nonpersistent.toFixed(2)}%</strong></li>
+            <li>Slotted 1-persistent CSMA: <strong>${throughput_percentage_one_persistent.toFixed(2)}%</strong></li>
+        </ul>
     `;
 
     document.getElementById('explain').innerHTML = explanation;
@@ -264,10 +329,10 @@ function Explanation() {
 //             toggleButton.textContent = 'Hide Explanation!';
 //             Explaination2();
 //         } else {
-            
+
 //             explainDiv.style.display = 'none';
 //             toggleButton.textContent = 'Show Explanation!';
-            
-            
+
+
 //         }
 //     }
