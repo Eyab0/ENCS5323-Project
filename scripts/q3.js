@@ -13,7 +13,7 @@ const jsonData = {
         "0.1": 1.47,
         "0.01": 7.89,
         "0.001": 10.61,
-        "0.0001": 12.32,
+        "0.0001": 12.00,
         "1e-05": 13.57,
         "1e-06": 14.55,
         "1e-07": 15.35,
@@ -100,7 +100,7 @@ function calculateTransmitPower() {
     const k_dB = -228.6;  // Boltzmann's constant in dB
     const T_dB = 10 * Math.log10(290);  // Noise temperature in dB
     const EbN0_dB = jsonData[document.getElementById('modulation-select').value][document.getElementById('ber-select').value];
-    const R_dB = 10 * Math.log10(parseFloat(document.getElementById("R").value));  // Data rate in dB
+    const R_dB = 10 * Math.log10(parseFloat(document.getElementById("R").value)*1000);  // Data rate in dB
 
     const Lp_dB = askInput(document.getElementById("Lp").value, document.getElementById("LpUnit").value);  // Path loss
     const Gt_dB = askInput(document.getElementById("Gt").value, document.getElementById("GtUnit").value);  // Transmit antenna gain
