@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <title>Transmit Power Calculator</title>
     <style>
@@ -33,8 +34,9 @@
             margin: 10px 0;
         }
 
-        .txtPost, .selectPost {
-            display: block;
+        .txtPost,
+        .selectPost {
+            display: inline-block;
             width: 70%;
             padding: 10px;
             font-size: 16px;
@@ -96,114 +98,127 @@
         }
     </style>
 </head>
+
 <body>
-<div class="container">
-    <h1>Transmit Power Calculator</h1>
-    <form id="calcForm">
-        <div class="input-group">
-            <input type="text" class="txtPost" id="Lp" placeholder="Path Loss" required/>
-            <select class="selectPost" id="LpUnit">
-                <option value="db">dB</option>
-                <option value="dbm">dBm</option>
-                <option value="linear">linear</option>
-            </select>
+    <div class="container">
+        <h1>Transmit Power Calculator</h1>
+        <form id="calcForm">
+            <div class="input-group">
+                <input type="text" class="txtPost" id="Lp" placeholder="Path Loss" required />
+                <select class="selectPost" id="LpUnit">
+                    <option value="db">dB</option>
+                    <option value="dbm">dBm</option>
+                    <option value="linear">linear</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <input type="text" class="txtPost" id="f" placeholder="Frequency (MHz)" required />
+                <select class="selectPost" id="fUnit">
+                    <option value="MHz">MHz</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <input type="text" class="txtPost" id="Gt" placeholder="Transmit Antenna Gain" required />
+                <select class="selectPost" id="GtUnit">
+                    <option value="db">dB</option>
+                    <option value="dbm">dBm</option>
+                    <option value="linear">linear</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <input type="text" class="txtPost" id="Gr" placeholder="Receive Antenna Gain" required />
+                <select class="selectPost" id="GrUnit">
+                    <option value="db">dB</option>
+                    <option value="dbm">dBm</option>
+                    <option value="linear">linear</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <input type="text" class="txtPost" id="R" placeholder="Data Rate (kbps)" required />
+                <select class="selectPost" id="RUnit">
+                    <option value="kbps">kbps</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <input type="text" class="txtPost" id="Lf" placeholder="Antenna Feed Line Loss" required />
+                <select class="selectPost" id="LfUnit">
+                    <option value="db">dB</option>
+                    <option value="dbm">dBm</option>
+                    <option value="linear">linear</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <input type="text" class="txtPost" id="Lo" placeholder="Other Losses" required />
+                <select class="selectPost" id="LoUnit">
+                    <option value="db">dB</option>
+                    <option value="dbm">dBm</option>
+                    <option value="linear">linear</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <input type="text" class="txtPost" id="M" placeholder="Fade Margin" required />
+                <select class="selectPost" id="MUnit">
+                    <option value="db">dB</option>
+                    <option value="dbm">dBm</option>
+                    <option value="linear">linear</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <input type="text" class="txtPost" id="Ar" placeholder="Receiver Amplifier Gain" required />
+                <select class="selectPost" id="ArUnit">
+                    <option value="db">dB</option>
+                    <option value="dbm">dBm</option>
+                    <option value="linear">linear</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <input type="text" class="txtPost" id="Nf" placeholder="Noise Figure" required />
+                <select class="selectPost" id="NfUnit">
+                    <option value="db">dB</option>
+                    <option value="dbm">dBm</option>
+                    <option value="linear">linear</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <input type="text" class="txtPost" id="link_margin" placeholder="Link Margin" required />
+                <select class="selectPost" id="link_marginUnit">
+                    <option value="db">dB</option>
+                    <option value="dbm">dBm</option>
+                    <option value="linear">linear</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <select id="modulation-select" class="selectPost" style="width: 50%;margin-left: 0px;">
+                    <option value="BPSK/QPSK">BPSK/QPSK</option>
+                    <option value="8-PSK">8-PSK</option>
+                    <option value="16-PSK">16-PSK</option>
+                </select>
+
+
+                <select id="ber-select" class="selectPost" style="width: 50%;"></select>
+            </div>
+            <!-- <div class="input-group">
+                <input type="text" class="txtPost" id="EbN0_dB" placeholder="Eb/N0 for 8-PSK at BER 10^-4" required />
+
+            </div> -->
+            <button type="submit" class="btnPost btnBlue">Calculate Transmit Power</button>
+        </form>
+        <div id="result"></div>
+        <button onclick="Explanation();">
+            Show Explanation!
+        </button>
+
+        <div id="explain">
         </div>
 
-        <div class="input-group">
-            <input type="text" class="txtPost" id="f" placeholder="Frequency (MHz)" required/>
-            <select class="selectPost" id="fUnit">
-                <option value="MHz">MHz</option>
-            </select>
-        </div>
-
-        <div class="input-group">
-            <input type="text" class="txtPost" id="Gt" placeholder="Transmit Antenna Gain" required/>
-            <select class="selectPost" id="GtUnit">
-                <option value="db">dB</option>
-                <option value="dbm">dBm</option>
-                <option value="linear">linear</option>
-            </select>
-        </div>
-        <div class="input-group">
-            <input type="text" class="txtPost" id="Gr" placeholder="Receive Antenna Gain" required/>
-            <select class="selectPost" id="GrUnit">
-                <option value="db">dB</option>
-                <option value="dbm">dBm</option>
-                <option value="linear">linear</option>
-            </select>
-        </div>
-        <div class="input-group">
-            <input type="text" class="txtPost" id="R" placeholder="Data Rate (kbps)" required/>
-            <select class="selectPost" id="RUnit">
-                <option value="kbps">kbps</option>
-            </select>
-        </div>
-        <div class="input-group">
-            <input type="text" class="txtPost" id="Lf" placeholder="Antenna Feed Line Loss" required/>
-            <select class="selectPost" id="LfUnit">
-                <option value="db">dB</option>
-                <option value="dbm">dBm</option>
-                <option value="linear">linear</option>
-            </select>
-        </div>
-        <div class="input-group">
-            <input type="text" class="txtPost" id="Lo" placeholder="Other Losses" required/>
-            <select class="selectPost" id="LoUnit">
-                <option value="db">dB</option>
-                <option value="dbm">dBm</option>
-                <option value="linear">linear</option>
-            </select>
-        </div>
-        <div class="input-group">
-            <input type="text" class="txtPost" id="M" placeholder="Fade Margin" required/>
-            <select class="selectPost" id="MUnit">
-                <option value="db">dB</option>
-                <option value="dbm">dBm</option>
-                <option value="linear">linear</option>
-            </select>
-        </div>
-        <div class="input-group">
-            <input type="text" class="txtPost" id="Ar" placeholder="Receiver Amplifier Gain" required/>
-            <select class="selectPost" id="ArUnit">
-                <option value="db">dB</option>
-                <option value="dbm">dBm</option>
-                <option value="linear">linear</option>
-            </select>
-        </div>
-        <div class="input-group">
-            <input type="text" class="txtPost" id="Nf" placeholder="Noise Figure" required/>
-            <select class="selectPost" id="NfUnit">
-                <option value="db">dB</option>
-                <option value="dbm">dBm</option>
-                <option value="linear">linear</option>
-            </select>
-        </div>
-        <div class="input-group">
-            <input type="text" class="txtPost" id="link_margin" placeholder="Link Margin" required/>
-            <select class="selectPost" id="link_marginUnit">
-                <option value="db">dB</option>
-                <option value="dbm">dBm</option>
-                <option value="linear">linear</option>
-            </select>
-        </div>
-        <div class="input-group">
-            <input type="text" class="txtPost" id="EbN0_dB" placeholder="Eb/N0 for 8-PSK at BER 10^-4" required/>
-
-        </div>
-        <button type="submit" class="btnPost btnBlue">Calculate Transmit Power</button>
-    </form>
-    <div id="result"></div>
-    <button onclick="Explanation();">
-        Show Explanation!
-    </button>
-
-    <div id="explain">
     </div>
-</div>
 
 
 </body>
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 <script src="../scripts/q3.js"></script>
+
 </html>

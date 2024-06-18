@@ -1,5 +1,71 @@
+const jsonData = {
+    "BPSK/QPSK": {
+        "0.1": -0.86,
+        "0.01": 4.32,
+        "0.001": 6.79,
+        "0.0001": 8.40,
+        "1e-05": 9.59,
+        "1e-06": 10.53,
+        "1e-07": 11.31,
+        "1e-08": 11.97
+    },
+    "8-PSK": {
+        "0.1": 1.47,
+        "0.01": 7.89,
+        "0.001": 10.61,
+        "0.0001": 12.32,
+        "1e-05": 13.57,
+        "1e-06": 14.55,
+        "1e-07": 15.35,
+        "1e-08": 16.03
+    },
+    "16-PSK": {
+        "0.1": 5.30,
+        "0.01": 11.10,
+        "0.001": 13.70,
+        "0.0001": 15.36,
+        "1e-05": 16.58,
+        "1e-06": 17.54,
+        "1e-07": 18.34,
+        "1e-08": 19.01
+    }
+};
+document.addEventListener('DOMContentLoaded', function () {
+    
+
+    const modulationSelect = document.getElementById('modulation-select');
+    const berSelect = document.getElementById('ber-select');
+    //const showButton = document.getElementById('show-button');
+    //const berValueBox = document.getElementById('ber-value-box');
+
+    // Populate BER select options based on selected modulation
+    modulationSelect.addEventListener('change', function () {
+        const selectedModulation = modulationSelect.value;
+        populateBerOptions(selectedModulation);
+    });
+
+    // Initial population of BER options
+    populateBerOptions(modulationSelect.value);
+    
+
+    // Function to populate BER options based on selected modulation
+    function populateBerOptions(modulation) {
+        // Clear previous options
+        berSelect.innerHTML = '';
+
+        // Populate options based on selected modulation
+        for (const ber in jsonData[modulation]) {
+            const option = document.createElement('option');
+            option.value = ber;
+            option.textContent = ber;
+            berSelect.appendChild(option);
+        }
+    }
+});
+
 document.getElementById('calcForm').addEventListener('submit', function (event) {
     event.preventDefault();
+    
     calculateTransmitPower();
 });
 
@@ -19,6 +85,7 @@ function wattsToDbm(watts) {
     return 10 * Math.log10(watts) + 30;
 }
 
+
 function askInput(value, unit) {
     if (unit === "db") {
         return parseFloat(value);
@@ -32,7 +99,7 @@ function askInput(value, unit) {
 function calculateTransmitPower() {
     const k_dB = -228.6;  // Boltzmann's constant in dB
     const T_dB = 10 * Math.log10(290);  // Noise temperature in dB
-    const EbN0_dB = parseFloat(document.getElementById("EbN0_dB").value);  // Required Eb/N0 in dB for 8-PSK at BER 10^-4
+    const EbN0_dB = jsonData[document.getElementById('modulation-select').value][document.getElementById('ber-select').value];
     const R_dB = 10 * Math.log10(parseFloat(document.getElementById("R").value));  // Data rate in dB
 
     const Lp_dB = askInput(document.getElementById("Lp").value, document.getElementById("LpUnit").value);  // Path loss
@@ -51,7 +118,7 @@ function calculateTransmitPower() {
 
     const Pt = wattsToDbm(dbToLinear(Pt_dB));
 
-    document.getElementById("result").innerHTML = "Transmit Power (Pt) = " + Pt.toFixed(2) + " dBm";
+    document.getElementById("result").innerHTML = "Transmit Power (Pt) = " + Pt.toFixed(2) + " dB";
 }
 
 function Explanation() {
@@ -66,12 +133,12 @@ function Explanation() {
     const Ar = parseFloat(document.getElementById("Ar").value);
     const Nf = parseFloat(document.getElementById("Nf").value);
     const T = 290; // Assuming standard noise temperature
-    const EbN0_dB = parseFloat(document.getElementById("EbN0_dB").value);
+    const EbN0_dB = jsonData[document.getElementById('modulation-select').value][document.getElementById('ber-select').value];
 
     const k = 1.38 * Math.pow(10, -23);
     // const EbN0_dB = 12; // Given as fixed value for BER of 10^-4
 
-    const K1_dB = 228.6; // Boltzmann constant in dB (approximated value)
+    const K1_dB = -228.6; // Boltzmann constant in dB (approximated value)
     const T_dB = 10 * Math.log10(T); // Noise temperature in dB
     const Nf1_dB = Nf; // Noise figure in dB (assuming Nf is already in dB)
 
