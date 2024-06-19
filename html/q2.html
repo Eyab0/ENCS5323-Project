@@ -70,6 +70,18 @@
             margin-bottom: 20px;
         }
 
+        .txtPost,
+        .selectPost {
+            display: inline-block;
+            width: 70%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+
         button:hover {
             background-color: #0056b3;
         }
@@ -84,91 +96,91 @@
 </head>
 
 <body>
-    <div class="container">
+<div class="container">
 
-        <div style="margin-bottom: 20px;">
-            <label>Resource Block Bandwidth : </label>
-            <input type="text" id="ResourceBlockBandwidth">
-            <select id="unit">
-                <option value="Hz" selected>Hz</option>
-                <option value="KHz">KHz</option>
-                <option value="MHz">MHz</option>
-                <option value="GHz">GHz</option>
-            </select>
-        </div>
-
-        <div style="margin-bottom: 20px;">
-            <label>Sub Carrier Bandwidth : </label>
-            <input type="text" id="SubCarrierBandwidth">
-            <select id="unit1">
-                <option value="Hz" selected>Hz</option>
-                <option value="KHz">KHz</option>
-                <option value="MHz">MHz</option>
-                <option value="GHz">GHz</option>
-            </select>
-        </div>
-
-        <div style="margin-bottom: 20px;">
-            <label>Number of OFDM Symbols Per Resource Block : </label>
-            <input type="text" id="NumberOfOFDMSymbols">
-        </div>
-
-        <div style="margin-bottom: 20px;">
-            <label>Resource Block Duration : </label>
-            <input type="text" id="ResourceBlockDuration">
-            <select id="TimeUnit">
-                <option value="Ksec">Ksec</option>
-                <option value="sec" selected>sec</option>
-                <option value="msec">msec</option>
-                <option value="μsec">μsec</option>
-                <option value="nsec">nsec</option>
-            </select>
-        </div>
-
-        <div style="margin-bottom: 20px;">
-            <label>Bits Modulation : </label>
-            <input type="text" id="BitsModulation">
-            <label style="margin-left: 5px;">QAM</label>
-        </div>
-
-
-        <div style="margin-bottom: 20px;">
-            <label>Number of parallel resource blocks assigned for the user : </label>
-            <input type="text" id="ParallelBlocks">
-        </div>
-
-        <button style="margin-bottom: 20px;" onclick="Init()">
-            Calculate!
-        </button>
-
-        <div>
-            <label style="color: red;" id="ErrorDisplay"></label>
-        </div>
-
-        <div style="margin-bottom: 20px;">
-            <label id="BitsPerResourceBlockAnswer"></label>
-        </div>
-
-        <div style="margin-bottom: 20px;">
-            <label id="BitsPerOFDMAnswer"></label>
-        </div>
-
-        <div style="margin-bottom: 20px;">
-            <label id="BitsPerOFDMResourceBlockAnswer"></label>
-        </div>
-
-        <div style="margin-bottom: 20px;">
-            <label id="MaximumTransitionRate"></label>
-        </div>
-
-        <button onclick="Explaination()">
-            Calculate!
-        </button>
-
-        <div id="explain">
-
-        </div>
+    <div style="margin-bottom: 20px;">
+        <label>Resource Block Bandwidth : </label>
+        <input type="text" id="ResourceBlockBandwidth">
+        <select id="unit">
+            <option value="Hz" selected>Hz</option>
+            <option value="KHz">KHz</option>
+            <option value="MHz">MHz</option>
+            <option value="GHz">GHz</option>
+        </select>
     </div>
+
+    <div style="margin-bottom: 20px;">
+        <label>Sub Carrier Bandwidth : </label>
+        <input type="text" id="SubCarrierBandwidth">
+        <select id="unit1">
+            <option value="Hz" selected>Hz</option>
+            <option value="KHz">KHz</option>
+            <option value="MHz">MHz</option>
+            <option value="GHz">GHz</option>
+        </select>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+        <label>Number of OFDM Symbols Per Resource Block : </label>
+        <input type="text" id="NumberOfOFDMSymbols">
+    </div>
+
+    <div style="margin-bottom: 20px;">
+        <label>Resource Block Duration : </label>
+        <input type="text" id="ResourceBlockDuration">
+        <select id="TimeUnit">
+            <option value="Ksec">Ksec</option>
+            <option value="sec" selected>sec</option>
+            <option value="msec">msec</option>
+            <option value="μsec">μsec</option>
+            <option value="nsec">nsec</option>
+        </select>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+        <label>Bits Modulation : </label>
+        <input type="text" id="BitsModulation">
+        <label style="margin-left: 5px;">QAM</label>
+    </div>
+
+
+    <div style="margin-bottom: 20px;">
+        <label>Number of parallel resource blocks assigned for the user : </label>
+        <input type="text" id="ParallelBlocks">
+    </div>
+
+    <button style="margin-bottom: 20px;" onclick="Init()">
+        Calculate!
+    </button>
+
+    <div>
+        <label style="color: red;" id="ErrorDisplay"></label>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+        <label id="BitsPerResourceBlockAnswer"></label>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+        <label id="BitsPerOFDMAnswer"></label>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+        <label id="BitsPerOFDMResourceBlockAnswer"></label>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+        <label id="MaximumTransitionRate"></label>
+    </div>
+
+    <button onclick="Explaination()">
+        Calculate!
+    </button>
+
+    <div id="explain">
+
+    </div>
+</div>
 
 </body>
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>

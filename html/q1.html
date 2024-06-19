@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 
 <head>
     <meta charset="UTF-8">
@@ -69,6 +69,22 @@
             margin-bottom: 20px;
         }
 
+        .txtPost,
+        .selectPost {
+            display: inline-block;
+            width: 70%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .selectPost {
+            width: 30%;
+            margin-left: 10px;
+        }
+
         button:hover {
             background-color: #0056b3;
         }
@@ -83,12 +99,11 @@
 </head>
 
 <body>
-    <div class="container">
-
-        <div style="margin-bottom: 20px;">
-            <label>Please Enter the Bandwidth : </label>
-            <input type="text" id="Bandwidth">
-            <select id="unit">
+<div class="container">
+    <form id="calcForm">
+        <div class="input-group">
+            <input type="text" class="txtPost" id="Bandwidth" placeholder="Please Enter the Bandwidth" required/>
+            <select class="selectPost" id="unit">
                 <option value="Hz" selected>Hz</option>
                 <option value="KHz">KHz</option>
                 <option value="MHz">MHz</option>
@@ -96,62 +111,63 @@
             </select>
         </div>
 
-        <div style="margin-bottom: 20px;">
-            <label>Please Enter the Quantizer Bits : </label>
-            <input type="text" id="Quantizer">
+        <div class="input-group">
+            <input type="text" class="txtPost" id="Quantizer" placeholder="Please Enter the Quantizer Bits" required/>
         </div>
 
-        <div style="margin-bottom: 20px;">
-            <label>Please Enter the Source Encoder Compression Rate</label>
-            <input type="text" id="SoureEncoderCompressionRate">
+        <div class="input-group">
+            <input type="text" class="txtPost" id="SoureEncoderCompressionRate"
+                   placeholder="Please Enter the Source Encoder Compression Rate" required/>
         </div>
 
-        <div style="margin-bottom: 20px;">
-            <label>Please Enter the Channel Encoder Rate</label>
-            <input type="text" id="ChannelEncoderRate">
+        <div class="input-group">
+            <input type="text" class="txtPost" id="ChannelEncoderRate"
+                   placeholder="Please Enter the Channel Encoder Rate"
+                   required/>
         </div>
 
-        <div style="margin-bottom: 50px;">
-            <label>Please Enter the Interleaver Bits</label>
-            <input type="text" id="InterleaverBits">
+        <div class="input-group">
+            <input type="text" class="txtPost" id="InterleaverBits" placeholder="Please Enter the Interleaver Bits"
+                   required/>
         </div>
+    </form>
 
-        <button onclick="Init()" style="margin-bottom: 20px;">
-            Calculate!
-        </button>
+    <button onclick="Init()" style="margin-bottom: 20px;">
+        Calculate!
+    </button>
 
-        <div>
-            <label style="color: red;" id="ErrorDisplay"></label>
-        </div>
-
-        <div style="margin-bottom: 20px;">
-            <label id="SamplingRateAnswer"></label>
-        </div>
-
-        <div style="margin-bottom: 20px;">
-            <label id="QuantizationLevelAnswer"></label>
-        </div>
-
-        <div style="margin-bottom: 20px;">
-            <label id="BitRateSourceEncoder"></label>
-        </div>
-
-        <div style="margin-bottom: 20px;">
-            <label id="BitRateChannelEncoder"></label>
-        </div>
-
-        <div style="margin-bottom: 20px;">
-            <label id="BitRateInterleaver"></label>
-        </div>
-
-        <button onclick="Explaination2()">
-            Show Explaination!
-        </button>
-
-        <div id="explain">
-
-        </div>
+    <div>
+        <label style="color: red;" id="ErrorDisplay"></label>
     </div>
+
+    <div style="margin-bottom: 20px;">
+        <label id="SamplingRateAnswer"></label>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+        <label id="QuantizationLevelAnswer"></label>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+        <label id="BitRateSourceEncoder"></label>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+        <label id="BitRateChannelEncoder"></label>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+        <label id="BitRateInterleaver"></label>
+    </div>
+
+    <button onclick="Explaination2()">
+        Show Explaination!
+    </button>
+
+    <div id="explain">
+
+    </div>
+</div>
 
 </body>
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>

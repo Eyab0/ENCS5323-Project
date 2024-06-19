@@ -1,3 +1,9 @@
+document.getElementById('calcForm').addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    Init();
+});
+
 
 var bandwidth, quantizerBits, sourceEncoderCompressionRate, channelEncoderRate, interleaverBits;
 
@@ -83,7 +89,7 @@ function Explaination() {
                 <p>Because Nyquist Rate is being used, the Bandwidth is muliplied by 2 Refer to <a href="https://en.wikipedia.org/wiki/Nyquist_rate">Link</a></p>
                 <div class="equation">
                     \\( f_S = Bandwidth \\times 2\\) <br><br>
-                    \\( f_S =  ${document.getElementById('Bandwidth').value + document.getElementById('unit').value} \\times 2 = ${(document.getElementById('Bandwidth').value*2) + document.getElementById('unit').value}\\)<br><br>
+                    \\( f_S =  ${document.getElementById('Bandwidth').value + document.getElementById('unit').value} \\times 2 = ${(document.getElementById('Bandwidth').value * 2) + document.getElementById('unit').value}\\)<br><br>
                 </div>
             </li>
             <li><strong>Calculate the Quantization Levels (L):</strong>
@@ -96,7 +102,7 @@ function Explaination() {
                 <p>At first, the bit rate of the input of the source encoder should be calculated as follows : </p>
                 <div class="equation">
                     \\( Source Encoder Input Bit Rate = Smapling Rate \\times Quantizer Bits \\)<br><br>
-                    \\( Source Encoder Input Bit Rate = ${(document.getElementById('Bandwidth').value*2) + document.getElementById('unit').value[0]} \\frac{Samples}{Sec} \\times ${quantizerBits} \\frac{Bits}{Samples} = ${SamplingRate() * quantizerBits}bits/sec \\)<br>
+                    \\( Source Encoder Input Bit Rate = ${(document.getElementById('Bandwidth').value * 2) + document.getElementById('unit').value[0]} \\frac{Samples}{Sec} \\times ${quantizerBits} \\frac{Bits}{Samples} = ${SamplingRate() * quantizerBits}bits/sec \\)<br>
                 </div>
                 <p>After that, The Source Encoder input bit rate will be multiplied by the Compression Rate of the source encoder</p>
                 <div class="equation">
