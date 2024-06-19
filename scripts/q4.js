@@ -279,7 +279,7 @@ function Explanation() {
                 <div class="equation">
                     \\( S_{\\text{th}} = \\frac{G e^{-G(1+2\\alpha)}}{(1+\\alpha)G + (1-\\alpha)e^{-G}} \\)<br>
                     <br><br>Plugging in the values:<br>
-                    \\( S_{\\text{th}} = \\frac{${G.toFixed(4)} e^{-G(1+2\\alpha)}}{(1+\\alpha)${G.toFixed(4)} + (1-\\alpha)e^{-G}} \\)<br>
+                    \\( S_{\\text{th}} = \\frac{${G.toFixed(4)} e^{- ${G.toFixed(4)}(1+2 \\times ${alpha.toFixed(4)})}}{(1+${alpha.toFixed(4)})${G.toFixed(4)} + (1-${alpha.toFixed(4)})e^{- ${G.toFixed(4)}}} \\)<br>
                    <br><br> Simplifying:<br>
                     \\( S_{\\text{th}} = ${S_th_nonpersistent.toFixed(4)} \\)
                 </div>
@@ -293,7 +293,7 @@ function Explanation() {
                 <div class="equation">
                     \\( S_{\\text{th}} = \\frac{G (1+\\alpha - e^{-\\alpha G}) e^{-G(1+\\alpha)}}{(1+\\alpha)(1-e^{-\\alpha G}) + \\alpha e^{-G(1+\\alpha)}} \\)<br>
                     <br><br>Plugging in the values:<br>
-                    \\( S_{\\text{th}} = \\frac{${G.toFixed(4)} (1+\\alpha - e^{-\\alpha G}) e^{-G(1+\\alpha)}}{(1+\\alpha)(1-e^{-\\alpha G}) + \\alpha e^{-G(1+\\alpha)}} \\)<br>
+                    \\( S_{\\text{th}} = \\frac{${G.toFixed(4)} (1+${alpha.toFixed(4)} - e^{- ${alpha.toFixed(4)} \\times ${G.toFixed(4)}}) e^{- ${G.toFixed(4)}(1+${alpha.toFixed(4)})}}{(1+${alpha.toFixed(4)})(1-e^{- ${alpha.toFixed(4)} \\times ${G.toFixed(4)}}) + ${alpha.toFixed(4)} e^{- ${G.toFixed(4)}(1+${alpha.toFixed(4)})}} \\)<br>
                    <br><br> Simplifying:<br>
                     \\( S_{\\text{th}} = ${S_th_one_persistent.toFixed(4)} \\)
                 </div>

@@ -100,72 +100,7 @@ function calculateTransmitPower() {
     const k_dB = -228.6;  // Boltzmann's constant in dB
     const T_dB = 10 * Math.log10(290);  // Noise temperature in dB
     const EbN0_dB = jsonData[document.getElementById('modulation-select').value][document.getElementById('ber-select').value];
-    const R_dB = 10 * Math.log10(parseFloat(document.getElementById("R").value)*1000);  // Data rate in dB
-
-    const Lp_dB = askInput(document.getElementById("Lp").value, document.getElementById("LpUnit").value);  // Path loss
-    const Gt_dB = askInput(document.getElementById("Gt").value, document.getElementById("GtUnit").value);  // Transmit antenna gain
-    const Gr_dB = askInput(document.getElementById("Gr").value, document.getElementById("GrUnit").value);  // Receive antenna gain
-    const Lf_dB = askInput(document.getElementById("Lf").value, document.getElementById("LfUnit").value);  // Antenna feed line loss
-    const Lo_dB = askInput(document.getElementById("Lo").value, document.getElementById("LoUnit").value);  // Other losses
-    const M_dB = askInput(document.getElementById("M").value, document.getElementById("MUnit").value);  // Fade margin
-    const Ar_dB = askInput(document.getElementById("Ar").value, document.getElementById("ArUnit").value);  // Receiver amplifier gain
-    const Nf_dB = askInput(document.getElementById("Nf").value, document.getElementById("NfUnit").value);  // Noise figure
-    const link_margin_dB = askInput(document.getElementById("link_margin").value, document.getElementById("link_marginUnit").value);  // Link margin
-
-    const power_received = M_dB + k_dB + T_dB + Nf_dB + R_dB + EbN0_dB;  // Noise floor in dB
-
-    const Pt_dB = power_received + Lp_dB - Gt_dB - Gr_dB + Lf_dB + Lo_dB - Ar_dB + link_margin_dB;
-
-    // const Pt = wattsToDbm(dbToLinear(Pt_dB));
-
-    document.getElementById("result").innerHTML = "Transmit Power (Pt) = " + Pt_dB.toFixed(2) + " dB";
-}
-
-function Explanation() {
-    // const Lp = parseFloat(document.getElementById("Lp").value);
-    // const f = parseFloat(document.getElementById("f").value);
-    // const Gt = parseFloat(document.getElementById("Gt").value);
-    // const Gr = parseFloat(document.getElementById("Gr").value);
-    // const R = parseFloat(document.getElementById("R").value);
-    // const Lf = parseFloat(document.getElementById("Lf").value);
-    // const Lo = parseFloat(document.getElementById("Lo").value);
-    // const M = parseFloat(document.getElementById("M").value);
-    // const Ar = parseFloat(document.getElementById("Ar").value);
-    // const Nf = parseFloat(document.getElementById("Nf").value);
-    // const T = 290; // Assuming standard noise temperature
-    // const EbN0_dB = jsonData[document.getElementById('modulation-select').value][document.getElementById('ber-select').value];
-    //
-    // const k = 1.38 * Math.pow(10, -23);
-    // // const EbN0_dB = 12; // Given as fixed value for BER of 10^-4
-    //
-    // const K1_dB = -228.6; // Boltzmann constant in dB (approximated value)
-    // const T_dB = 10 * Math.log10(T); // Noise temperature in dB
-    // const Nf1_dB = Nf; // Noise figure in dB (assuming Nf is already in dB)
-    //
-    //
-    // // Convert Eb/N0 to linear scale
-    // const EbN0_linear = dbToLinear(EbN0_dB);
-    //
-    // // Calculate noise power spectral density N0
-    // const N0 = k * T;
-    //
-    // // Calculate total noise power N
-    // const N = N0 * R * 1e3; // R in kbps, converting to bps
-    // const N_dB = linearToDb(N);
-    //
-    //
-    // // Calculate received power Pr
-    // const Pr_dB = M + K1_dB + T_dB + Nf1_dB + EbN0_dB + linearToDb(N0) + linearToDb(R * 1e3);
-    //
-    // // Calculate total transmit power Pt
-    // const Pt_dB = Pr_dB + Lp + Lf + Lo - Gt - Gr + M;
-    // const Pt_watts = dbToLinear(Pt_dB);
-
-
-    const k_dB = -228.6;  // Boltzmann's constant in dB
-    const T_dB = 10 * Math.log10(290);  // Noise temperature in dB
-    const EbN0_dB = jsonData[document.getElementById('modulation-select').value][document.getElementById('ber-select').value];
-    const R_dB = 10 * Math.log10(parseFloat(document.getElementById("R").value));  // Data rate in dB
+    // const R_dB = 10 * Math.log10(parseFloat(document.getElementById("R").value) * 1000);  // Data rate in dB
 
     const Lp_dB = askInput(document.getElementById("Lp").value, document.getElementById("LpUnit").value);  // Path loss
     const f_dB = document.getElementById("f").value;  // Frequency
@@ -178,6 +113,76 @@ function Explanation() {
     const Nf_dB = askInput(document.getElementById("Nf").value, document.getElementById("NfUnit").value);  // Noise figure
     const link_margin_dB = askInput(document.getElementById("link_margin").value, document.getElementById("link_marginUnit").value);  // Link margin
 
+
+    const R_Unit = document.getElementById("RUnit").value;
+
+    let R_dB = parseFloat(document.getElementById("R").value);
+
+    switch (R_Unit) {
+        case 'Kbps':
+            R_dB = R_dB * 1e3;
+            break;
+        case 'Mbps':
+            R_dB = R_dB * 1e6;
+            break;
+        case 'Gbps':
+            R_dB = R_dB * 1e9;
+            break;
+        default:
+            R_dB = R_dB * 1e3; // Default to Kbps
+    }
+
+    R_dB = 10 * Math.log10(R_dB);
+
+    const power_received = M_dB + k_dB + T_dB + Nf_dB + R_dB + EbN0_dB;  // Noise floor in dB
+
+    const Pt_dB = power_received + Lp_dB - Gt_dB - Gr_dB + Lf_dB + Lo_dB - Ar_dB + link_margin_dB;
+
+
+    document.getElementById("result").innerHTML = "Transmit Power (Pt) = " + Pt_dB.toFixed(2) + " dB";
+}
+
+function Explanation() {
+
+
+    const k_dB = -228.6;  // Boltzmann's constant in dB
+    // const T_dB = 10 * Math.log10(290);  // Noise temperature in dB
+    const EbN0_dB = jsonData[document.getElementById('modulation-select').value][document.getElementById('ber-select').value];
+    // const R_dB = 10 * Math.log10(parseFloat(document.getElementById("R").value) * 1000);  // Data rate in dB
+
+    const Lp_dB = askInput(document.getElementById("Lp").value, document.getElementById("LpUnit").value);  // Path loss
+    const f_dB = document.getElementById("f").value;  // Frequency
+    const Gt_dB = askInput(document.getElementById("Gt").value, document.getElementById("GtUnit").value);  // Transmit antenna gain
+    const Gr_dB = askInput(document.getElementById("Gr").value, document.getElementById("GrUnit").value);  // Receive antenna gain
+    const Lf_dB = askInput(document.getElementById("Lf").value, document.getElementById("LfUnit").value);  // Antenna feed line loss
+    const Lo_dB = askInput(document.getElementById("Lo").value, document.getElementById("LoUnit").value);  // Other losses
+    const M_dB = askInput(document.getElementById("M").value, document.getElementById("MUnit").value);  // Fade margin
+    const Ar_dB = askInput(document.getElementById("Ar").value, document.getElementById("ArUnit").value);  // Receiver amplifier gain
+    const Nf_dB = askInput(document.getElementById("Nf").value, document.getElementById("NfUnit").value);  // Noise figure
+    const T_dB = askInput(document.getElementById("T").value, document.getElementById("TUnit").value);  // Noise figure
+    const link_margin_dB = askInput(document.getElementById("link_margin").value, document.getElementById("link_marginUnit").value);  // Link margin
+
+
+    const R_Unit = document.getElementById("RUnit").value;
+
+    let R = parseFloat(document.getElementById("R").value);
+
+    switch (R_Unit) {
+        case 'Kbps':
+            R = R * 1e3;
+            break;
+        case 'Mbps':
+            R = R * 1e6;
+            break;
+        case 'Gbps':
+            R = R * 1e9;
+            break;
+        default:
+            R = R * 1e3; // Default to Kbps
+    }
+
+    let R_dB = 10 * Math.log10(R);
+
     const power_received = M_dB + k_dB + T_dB + Nf_dB + R_dB + EbN0_dB;  // Noise floor in dB
 
     const Pt_dB = power_received + Lp_dB - Gt_dB - Gr_dB + Lf_dB + Lo_dB - Ar_dB + link_margin_dB;
@@ -188,24 +193,24 @@ function Explanation() {
     let explanation = `
     <h2>Given Data:</h2>
     <ul>
-        <li>Path Loss (\\( L_p \\)): <span class="highlight">${Lp_dB} dB</span></li>
+        <li>Path Loss (\\( L_p \\)): <span class="highlight">${Lp_dB.toFixed(2)} dB</span></li>
         <li>Frequency (\\( f \\)): <span class="highlight">${f_dB} MHz</span></li>
-        <li>Transmit Antenna Gain (\\( G_t \\)): <span class="highlight">${Gt_dB} dB</span></li>
-        <li>Receive Antenna Gain (\\( G_r \\)): <span class="highlight">${Gr_dB} dB</span></li>
-        <li>Data Rate (\\( R \\)): <span class="highlight">${R_dB} kbps</span></li>
-        <li>Antenna Feed Line Loss (\\( L_f \\)): <span class="highlight">${Lf_dB} dB</span></li>
-        <li>Other Losses (\\( L_o \\)): <span class="highlight">${Lo_dB} dB</span></li>
-        <li>Fade Margin (\\( M \\)): <span class="highlight">${M_dB} dB</span></li>
-        <li>Receiver Amplifier Gain (\\( A_r \\)): <span class="highlight">${Ar_dB} dB</span></li>
-        <li>Noise Figure (\\( N_f \\)): <span class="highlight">${Nf_dB} dB</span></li>
-        <li>Noise Temperature (\\( T \\)): <span class="highlight">${T_dB} K</span></li>
+        <li>Transmit Antenna Gain (\\( G_t \\)): <span class="highlight">${Gt_dB.toFixed(2)} dB</span></li>
+        <li>Receive Antenna Gain (\\( G_r \\)): <span class="highlight">${Gr_dB.toFixed(2)} dB</span></li>
+        <li>Data Rate (\\( R \\)): <span class="highlight">${R.toFixed(2)} ${R_Unit} | ${R_dB} dB</span></li>
+        <li>Antenna Feed Line Loss (\\( L_f \\)): <span class="highlight">${Lf_dB.toFixed(2)} dB</span></li>
+        <li>Other Losses (\\( L_o \\)): <span class="highlight">${Lo_dB.toFixed(2)} dB</span></li>
+        <li>Fade Margin (\\( M \\)): <span class="highlight">${M_dB.toFixed(2)} dB</span></li>
+        <li>Receiver Amplifier Gain (\\( A_r \\)): <span class="highlight">${Ar_dB.toFixed(2)} dB</span></li>
+        <li>Noise Figure (\\( N_f \\)): <span class="highlight">${Nf_dB.toFixed(2)} dB</span></li>
+        <li>Noise Temperature (\\( T \\)): <span class="highlight">${T_dB.toFixed(2)} K</span></li>
     </ul>
 
     <h2>Steps to Solve:</h2>
     <ol>
         <li><strong>Determine \\( \\frac{E_b}{N_0} \\):</strong>
             <div class="equation">
-                For ${document.getElementById('modulation-select').value} modulation with a BER of {\\(${document.getElementById('ber-select').value} \\)}, the required \\( \\frac{E_b}{N_0} \\) is approximately ${EbN0_dB} dB.
+                For \\(${document.getElementById('modulation-select').value}\\) modulation with a BER of \\(${document.getElementById('ber-select').value} \\), the required \\( \\frac{E_b}{N_0} \\) is approximately \\(${EbN0_dB}\\) dB.
             </div>
         </li>
         
@@ -245,13 +250,13 @@ function Explanation() {
                
                
                 <br>Convert \\( P_t \\) from dBW to watts:<br>
-                \\( P_t = 10^{${Pt_dB.toFixed(2)}/10} \\approx ${(pt_wtt).toExponential(2)} \\approx ${(pt_wtt).toFixed(2)} \\, \\text{pt_wtt} \\)
+                \\( P_t = 10^{${Pt_dB.toFixed(2)}/10} \\approx ${pt_wtt.toExponential(2)} \\, \\text{ Watts} \\)
             </div>
         </li>
     </ol>
 
     <h2>Conclusion:</h2>
-    <p>Therefore, the total transmit power required for an ${document.getElementById('modulation-select').value} modulated signal with a maximum bit error rate of \\(${document.getElementById('ber-select').value}\\) in the given environment is approximately <strong>${Pt_dB} DB or  ${pt_wtt} Watts</strong>.</p>
+    <p>Therefore, the total transmit power required for an ${document.getElementById('modulation-select').value} modulated signal with a maximum bit error rate of \\(${document.getElementById('ber-select').value}\\) in the given environment is approximately <strong>${Pt_dB} dB or  ${pt_wtt.toExponential(2)} Watts</strong>.</p>
 `;
 
 
