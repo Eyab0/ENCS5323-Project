@@ -10,6 +10,9 @@
             font-family: Arial, sans-serif;
             line-height: 1.8;
             margin: 20px;
+            background-image: url("../assets/images/back.jpg");
+            background-size: cover;
+            background-repeat: no-repeat;
         }
 
         .container {
@@ -19,6 +22,7 @@
             border: 1px solid #ccc;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: white;
         }
 
         h1 {
@@ -65,6 +69,22 @@
             margin-bottom: 20px;
         }
 
+        .txtPost,
+        .selectPost {
+            display: inline-block;
+            width: 70%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .selectPost {
+            width: 30%;
+            margin-left: 10px;
+        }
+
         button:hover {
             background-color: #0056b3;
         }
@@ -74,6 +94,9 @@
                 font-size: 16px;
             }
         }
+        .spacing{
+            margin-bottom: 20px;;
+        }
     </style>
 
 </head>
@@ -82,28 +105,28 @@
     <div class="container">
 
         <div style="margin-bottom: 20px;">
-            <label>Timeslot per Carrier : </label>
-            <input type="text" id="TimeSlotsPerCarrier">
+            <!-- <label>Timeslot per Carrier : </label> -->
+            <input type="text" id="TimeSlotsPerCarrier" placeholder="Timeslot per Carrier" required class="txtPost">
         </div>
 
         <div style="margin-bottom: 20px;">
-            <label>City Area : </label>
-            <input type="text" id="CityArea">
-            <select id="AreaUnit">
+            <!-- <label> : </label> -->
+            <input type="text" id="CityArea" placeholder="City Area" required class="txtPost" style="width: 70%;">
+            <select id="AreaUnit" class="selectPost" style="margin-left: 0px; width: 25%;">
                 <option value="m">m&sup2</option>
                 <option value="Km" selected>Km&sup2</option>
             </select>
         </div>
 
         <div style="margin-bottom: 20px;">
-            <label>Subscribers per Mobile Network Provider : </label>
-            <input type="text" id="Subscribers">
+            <!-- <label>Subscribers per Mobile Network Provider : </label> -->
+            <input type="text" id="Subscribers" placeholder="Subscribers per Mobile Network Provider" required class="txtPost" style="width: 70%;">
         </div>
 
         <div style="margin-bottom: 20px;">
-            <label>Average Duration of the Call (H) : </label>
-            <input type="text" id="H">
-            <select id="HUnit">
+            <!-- <label>Average Duration of the Call (H) : </label> -->
+            <input type="text" id="H" placeholder="Average Duration of the Call (H)" required class="txtPost" style="width: 70%;">
+            <select id="HUnit" class="selectPost" style="margin-left: 0px; width: 25%;">
                 <option value="Days">Day(s)</option>
                 <option value="Hours">Hour(s)</option>
                 <option value="Minutes">Minute(s)</option>
@@ -112,9 +135,9 @@
         </div>
 
         <div style="margin-bottom: 20px;">
-            <label>Average Number of Call Requests per Unit Time (λ) : </label>
-            <input type="text" id="Lambda">
-            <select id="LambdaUnit">
+            <!-- <label>Average Number of Call Requests per Unit Time (λ) : </label> -->
+            <input type="text" id="Lambda" placeholder="Average Number of Call Requests per Unit Time (λ)" required class="txtPost">
+            <select id="LambdaUnit" class="selectPost" style="margin-left: 0px; width: 25%;">
                 <option value="Day">Calls per Day</option>
                 <option value="Hour">Calls per Hour</option>
                 <option value="Minute">Calls per Minute</option>
@@ -123,42 +146,42 @@
         </div>
 
         <div style="margin-bottom: 20px;">
-            <label>Trunking System : </label>
-            <select id="TrunkingSystem">
+            <!-- <label>Trunking System : </label> -->
+            <select id="TrunkingSystem" class="selectPost" style="margin-left: 0px; width: 25%;">
                 <option value="ErlangB" selected>Erlang B</option>
                 <option value="ErlangC">Erlang C</option>
             </select>
         </div>
 
         <div style="margin-bottom: 20px;">
-            <label>Quality of Service (QoS) : </label>
-            <input type="text" id="QoS">
+            <!-- <label>Quality of Service (QoS) : </label> -->
+            <input type="text" id="QoS" placeholder="Quality of Service (QoS)" required class="txtPost" style="width: 70%;">
         </div>
 
         <div style="margin-bottom: 20px;">
-            <label>Minimum SIR Needed to Correctly Provide the Service (dB) : </label>
-            <input type="text" id="SIR">
+            <!-- <label>Minimum SIR Needed to Correctly Provide the Service (dB) : </label> -->
+            <input type="text" id="SIR" placeholder="Minimum SIR Needed to Correctly Provide the Service (dB)" required class="txtPost" style="width: 70%;">
         </div>
 
         <div style="margin-bottom: 20px;">
-            <label>Reference Distance From Base Station : </label>
-            <input type="text" id="D0">
+            <!-- <label>Reference Distance From Base Station : </label> -->
+            <input type="text" id="D0" placeholder="Reference Distance From Base Station" required class="txtPost" style="width: 70%;">
         </div>
 
         <div style="margin-bottom: 20px;">
-            <label>Meaured Power At Reference Distance (dB) : </label>
-            <input type="text" id="P0">
+            <!-- <label>Meaured Power At Reference Distance (dB) : </label> -->
+            <input type="text" id="P0" placeholder="Meaured Power At Reference Distance (dB)" required class="txtPost" style="width: 70%;">
         </div>
 
         <div style="margin-bottom: 20px;">
-            <label>Path Loss Distance (n) : </label>
-            <input type="text" id="PathLossExponent">
+            <!-- <label>Path Loss Distance (n) : </label> -->
+            <input type="text" id="PathLossExponent" placeholder="Path Loss Exponent (n)" required class="txtPost" style="width: 70%;">
         </div>
 
         <div style="margin-bottom: 20px;">
-            <label>Receiver Sensitivity : </label>
-            <input type="text" id="ReceiverSensitivity">
-            <select id="ReceiverSensitivityUnit">
+            <!-- <label>Receiver Sensitivity : </label> -->
+            <input type="text" id="ReceiverSensitivity" placeholder="Receiver Sensitivity" required class="txtPost" style="width: 70%;">
+            <select id="ReceiverSensitivityUnit" class="selectPost" style="margin-left: 0px; width: 25%;">
                 <option value="Watts">Watts</option>
                 <option value="mWatts">mWatts</option>
                 <option value="μWatts" selected>μWatts</option>
@@ -221,4 +244,4 @@
 </body>
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-<script src="/js/q5.js"></script>
+<script src="/scripts/q5.js"></script>
