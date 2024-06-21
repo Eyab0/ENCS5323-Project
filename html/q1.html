@@ -94,6 +94,9 @@
                 font-size: 16px;
             }
         }
+        .spacing{
+            margin-bottom: 20px;;
+        }
     </style>
 
 </head>
@@ -101,9 +104,9 @@
 <body>
 <div class="container">
     <form id="calcForm">
-        <div class="input-group">
-            <input type="text" class="txtPost" id="Bandwidth" placeholder="Please Enter the Bandwidth" required/>
-            <select class="selectPost" id="unit">
+        <div class="input-group spacing">
+            <input type="text" class="txtPost" id="Bandwidth" placeholder="Please Enter the Bandwidth" style="width: 70%;" required/>
+            <select class="selectPost" id="unit" style="width:25%; margin-left: 0px;">
                 <option value="Hz" selected>Hz</option>
                 <option value="KHz">KHz</option>
                 <option value="MHz">MHz</option>
@@ -111,22 +114,22 @@
             </select>
         </div>
 
-        <div class="input-group">
+        <div class="input-group spacing">
             <input type="text" class="txtPost" id="Quantizer" placeholder="Please Enter the Quantizer Bits" required/>
         </div>
 
-        <div class="input-group">
+        <div class="input-group spacing">
             <input type="text" class="txtPost" id="SoureEncoderCompressionRate"
                    placeholder="Please Enter the Source Encoder Compression Rate" required/>
         </div>
 
-        <div class="input-group">
+        <div class="input-group spacing">
             <input type="text" class="txtPost" id="ChannelEncoderRate"
                    placeholder="Please Enter the Channel Encoder Rate"
                    required/>
         </div>
 
-        <div class="input-group">
+        <div class="input-group spacing">
             <input type="text" class="txtPost" id="InterleaverBits" placeholder="Please Enter the Interleaver Bits"
                    required/>
         </div>
@@ -160,7 +163,7 @@
         <label id="BitRateInterleaver"></label>
     </div>
 
-    <button onclick="Explaination2()">
+    <button onclick="Explaination()">
         Show Explaination!
     </button>
 
