@@ -5,172 +5,84 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wireless and Mobile Networks Calculator</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.8;
-            margin: 20px;
-            background-image: url("../assets/images/back.jpg");
-            background-size: cover;
-            background-repeat: no-repeat;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            background-color: white;
-        }
-
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-
-        h2 {
-            color: #444;
-            border-bottom: 2px solid #ccc;
-            padding-bottom: 5px;
-        }
-
-        .equation {
-            font-family: 'Courier New', Courier, monospace;
-            background: #f9f9f9;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            margin: 10px 0;
-            overflow-x: auto;
-        }
-
-        .highlight {
-            background: #ffffcc;
-            padding: 2px 5px;
-            border-radius: 3px;
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        button {
-            display: block;
-            width: 100%;
-            padding: 10px;
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 18px;
-            cursor: pointer;
-            margin-bottom: 20px;
-        }
-
-        .txtPost,
-        .selectPost {
-            display: inline-block;
-            width: 70%;
-            padding: 10px;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-
-        .selectPost {
-            width: 30%;
-            margin-left: 10px;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-
-        @media screen and (max-width: 600px) {
-            .equation {
-                font-size: 16px;
-            }
-        }
-        .spacing{
-            margin-bottom: 20px;;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="/CSS/global.css">
 
 </head>
 
 <body>
-<div class="container">
-    <form id="calcForm">
-        <div class="input-group spacing">
-            <input type="text" class="txtPost" id="Bandwidth" placeholder="Please Enter the Bandwidth" style="width: 70%;" required/>
-            <select class="selectPost" id="unit" style="width:25%; margin-left: 0px;">
-                <option value="Hz" selected>Hz</option>
-                <option value="KHz">KHz</option>
-                <option value="MHz">MHz</option>
-                <option value="GHz">GHz</option>
-            </select>
+    <div class="container">
+        <h1 style="display: flex; align-items: center; justify-content: center;">Digital Communication System Calculator</h1>
+        <a class="Back" href="/index.html" style="width: fit-content; text-decoration: none;">Main Page</a>
+
+        <form id="calcForm">
+            <div class="input-group spacing">
+                <input type="text" class="txtPost" id="Bandwidth" placeholder="Please Enter the Bandwidth"
+                    style="width: 70%;" required />
+                <select class="selectPost" id="unit" style="width:25%; margin-left: 0px;">
+                    <option value="Hz" selected>Hz</option>
+                    <option value="KHz">KHz</option>
+                    <option value="MHz">MHz</option>
+                    <option value="GHz">GHz</option>
+                </select>
+            </div>
+
+            <div class="input-group spacing">
+                <input type="text" class="txtPost" id="Quantizer" placeholder="Please Enter the Quantizer Bits"
+                    required />
+            </div>
+
+            <div class="input-group spacing">
+                <input type="text" class="txtPost" id="SoureEncoderCompressionRate"
+                    placeholder="Please Enter the Source Encoder Compression Rate" required />
+            </div>
+
+            <div class="input-group spacing">
+                <input type="text" class="txtPost" id="ChannelEncoderRate"
+                    placeholder="Please Enter the Channel Encoder Rate" required />
+            </div>
+
+            <div class="input-group spacing">
+                <input type="text" class="txtPost" id="InterleaverBits" placeholder="Please Enter the Interleaver Bits"
+                    required />
+            </div>
+        </form>
+
+        <button onclick="Init()" style="margin-bottom: 20px;">
+            Calculate!
+        </button>
+
+        <div>
+            <label style="color: red;" id="ErrorDisplay"></label>
         </div>
 
-        <div class="input-group spacing">
-            <input type="text" class="txtPost" id="Quantizer" placeholder="Please Enter the Quantizer Bits" required/>
+        <div style="margin-bottom: 20px;">
+            <label id="SamplingRateAnswer"></label>
         </div>
 
-        <div class="input-group spacing">
-            <input type="text" class="txtPost" id="SoureEncoderCompressionRate"
-                   placeholder="Please Enter the Source Encoder Compression Rate" required/>
+        <div style="margin-bottom: 20px;">
+            <label id="QuantizationLevelAnswer"></label>
         </div>
 
-        <div class="input-group spacing">
-            <input type="text" class="txtPost" id="ChannelEncoderRate"
-                   placeholder="Please Enter the Channel Encoder Rate"
-                   required/>
+        <div style="margin-bottom: 20px;">
+            <label id="BitRateSourceEncoder"></label>
         </div>
 
-        <div class="input-group spacing">
-            <input type="text" class="txtPost" id="InterleaverBits" placeholder="Please Enter the Interleaver Bits"
-                   required/>
+        <div style="margin-bottom: 20px;">
+            <label id="BitRateChannelEncoder"></label>
         </div>
-    </form>
 
-    <button onclick="Init()" style="margin-bottom: 20px;">
-        Calculate!
-    </button>
+        <div style="margin-bottom: 20px;">
+            <label id="BitRateInterleaver"></label>
+        </div>
 
-    <div>
-        <label style="color: red;" id="ErrorDisplay"></label>
+        <button onclick="Explaination()">
+            Show Explaination!
+        </button>
+
+        <div id="explain">
+
+        </div>
     </div>
-
-    <div style="margin-bottom: 20px;">
-        <label id="SamplingRateAnswer"></label>
-    </div>
-
-    <div style="margin-bottom: 20px;">
-        <label id="QuantizationLevelAnswer"></label>
-    </div>
-
-    <div style="margin-bottom: 20px;">
-        <label id="BitRateSourceEncoder"></label>
-    </div>
-
-    <div style="margin-bottom: 20px;">
-        <label id="BitRateChannelEncoder"></label>
-    </div>
-
-    <div style="margin-bottom: 20px;">
-        <label id="BitRateInterleaver"></label>
-    </div>
-
-    <button onclick="Explaination()">
-        Show Explaination!
-    </button>
-
-    <div id="explain">
-
-    </div>
-</div>
 
 </body>
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>

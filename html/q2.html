@@ -5,103 +5,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wireless and Mobile Networks Calculator</title>
-
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.8;
-            margin: 20px;
-            background-image: url("../assets/images/back.jpg");
-            background-size: cover;
-            background-repeat: no-repeat;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            background-color: white;
-        }
-
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-
-        h2 {
-            color: #444;
-            border-bottom: 2px solid #ccc;
-            padding-bottom: 5px;
-        }
-
-        .equation {
-            font-family: 'Courier New', Courier, monospace;
-            background: #f9f9f9;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            margin: 10px 0;
-            overflow-x: auto;
-        }
-
-        .highlight {
-            background: #ffffcc;
-            padding: 2px 5px;
-            border-radius: 3px;
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        button {
-            display: block;
-            width: 100%;
-            padding: 10px;
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 18px;
-            cursor: pointer;
-            margin-bottom: 20px;
-        }
-
-        .txtPost,
-        .selectPost {
-            display: inline-block;
-            width: 70%;
-            padding: 10px;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-
-
-        button:hover {
-            background-color: #0056b3;
-        }
-
-        @media screen and (max-width: 600px) {
-            .equation {
-                font-size: 16px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="/CSS/global.css">
+    
 
 </head>
 
 <body>
 <div class="container">
+    <h1 style="display: flex; align-items: center; justify-content: center;">CH2</h1>
+    <a class="Back" href="/index.html" style="width: fit-content; text-decoration: none;">Main Page</a>
 
     <div style="margin-bottom: 20px;">
-        <label>Resource Block Bandwidth : </label>
-        <input type="text" id="ResourceBlockBandwidth">
-        <select id="unit">
+        <input type="text" id="ResourceBlockBandwidth" required placeholder="Resource Block Bandwidth" class="txtPost" style="width: 70%;">
+        <select id="unit" style="width:25%; margin-left: 0px;" class="selectPost">
             <option value="Hz" selected>Hz</option>
             <option value="KHz">KHz</option>
             <option value="MHz">MHz</option>
@@ -110,9 +26,8 @@
     </div>
 
     <div style="margin-bottom: 20px;">
-        <label>Sub Carrier Bandwidth : </label>
-        <input type="text" id="SubCarrierBandwidth">
-        <select id="unit1">
+        <input type="text" id="SubCarrierBandwidth" required placeholder="Sub Carrier Bandwidth" class="txtPost" style="width: 70%;">
+        <select id="unit1" style="width:25%; margin-left: 0px;" class="selectPost">
             <option value="Hz" selected>Hz</option>
             <option value="KHz">KHz</option>
             <option value="MHz">MHz</option>
@@ -121,14 +36,12 @@
     </div>
 
     <div style="margin-bottom: 20px;">
-        <label>Number of OFDM Symbols Per Resource Block : </label>
-        <input type="text" id="NumberOfOFDMSymbols">
+        <input type="text" id="NumberOfOFDMSymbols" required placeholder="Number of OFDM Symbols Per Resource Block" class="txtPost" style="width: 70%;">
     </div>
 
     <div style="margin-bottom: 20px;">
-        <label>Resource Block Duration : </label>
-        <input type="text" id="ResourceBlockDuration">
-        <select id="TimeUnit">
+        <input type="text" id="ResourceBlockDuration" required placeholder="Resource Block Duration" class="txtPost" style="width: 70%;">
+        <select id="TimeUnit" style="width:25%; margin-left: 0px;" class="selectPost">
             <option value="Ksec">Ksec</option>
             <option value="sec" selected>sec</option>
             <option value="msec">msec</option>
@@ -138,15 +51,13 @@
     </div>
 
     <div style="margin-bottom: 20px;">
-        <label>Bits Modulation : </label>
-        <input type="text" id="BitsModulation">
+        <input type="text" id="BitsModulation" required placeholder="Bits Modulation" class="txtPost" style="width: 70%;">
         <label style="margin-left: 5px;">QAM</label>
     </div>
 
 
     <div style="margin-bottom: 20px;">
-        <label>Number of parallel resource blocks assigned for the user : </label>
-        <input type="text" id="ParallelBlocks">
+        <input type="text" id="ParallelBlocks" required placeholder="Number of parallel resource blocks assigned for the user" class="txtPost" style="width: 70%;">
     </div>
 
     <button style="margin-bottom: 20px;" onclick="Init()">
