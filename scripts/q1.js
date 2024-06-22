@@ -65,11 +65,11 @@ function ChannelEncoderOutputBitRate() {
 
 function Calculate() {
     document.getElementById('ErrorDisplay').innerText = '';
-    document.getElementById('SamplingRateAnswer').innerText = "The sampling Rate is = " + SamplingRate();
-    document.getElementById('QuantizationLevelAnswer').innerText = "The Quantization Levels = " + QuantizationLevels();
-    document.getElementById('BitRateSourceEncoder').innerText = "The Bit Rate at the Output of the Source Encoder = " + SourceEncoderOutputBitRate();
-    document.getElementById('BitRateChannelEncoder').innerText = "The bit Rate at the Output of the Channel Encoder = " + ChannelEncoderOutputBitRate();
-    document.getElementById('BitRateInterleaver').innerText = "The Bit Rate at the Output of the Interleaver = " + ChannelEncoderOutputBitRate(); //because it only makes a delay
+    document.getElementById('SamplingRateAnswer').innerText = "The sampling Rate is = " + SamplingRate() + " Hz";
+    document.getElementById('QuantizationLevelAnswer').innerText = "The Quantization Levels = " + QuantizationLevels() + " Levels";
+    document.getElementById('BitRateSourceEncoder').innerText = "The Bit Rate at the Output of the Source Encoder = " + SourceEncoderOutputBitRate() + " bits/sec";
+    document.getElementById('BitRateChannelEncoder').innerText = "The bit Rate at the Output of the Channel Encoder = " + ChannelEncoderOutputBitRate() + " bits/sec";
+    document.getElementById('BitRateInterleaver').innerText = "The Bit Rate at the Output of the Interleaver = " + ChannelEncoderOutputBitRate() + " bits/sec"; //because it only makes a delay
 
 }
 
@@ -107,7 +107,7 @@ function Explaination() {
                 <p>After that, The Source Encoder input bit rate will be multiplied by the Compression Rate of the source encoder</p>
                 <div class="equation">
                     \\( Source Encoder Output Bit Rate = Source Encoder Input Bit Rate \\times Quantizer Bits \\)<br><br>
-                    \\( Source Encoder Output Bit Rate =  ${SamplingRate() * quantizerBits + document.getElementById('unit').value[0]} \\times ${sourceEncoderCompressionRate} = ${SourceEncoderOutputBitRate()}bits/sec\\)<br>
+                    \\( Source Encoder Output Bit Rate =  ${SamplingRate() * quantizerBits} \\times ${sourceEncoderCompressionRate} = ${SourceEncoderOutputBitRate()}bits/sec\\)<br>
                 </div>
             </li>
             <li><strong>Calculate the Bit Rate at the Output of the Channel Encoder :</strong>
