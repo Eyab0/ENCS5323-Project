@@ -128,7 +128,7 @@ function slottedNonpersistentCSMA(alpha, G, T_frame) {
     const numerator = alpha * G * Math.exp(-2 * alpha * T_frame);
     const denominator = (1 - Math.exp(-alpha * G) + alpha);
     const S_th = numerator / denominator;
-    return S_th;
+    return (S_th > 1? 1 : S_th);
 }
 
 // Calculate throughput for slotted 1-persistent CSMA
