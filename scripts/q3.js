@@ -165,6 +165,8 @@ function Explanation() {
 
 
     const R_Unit = document.getElementById("RUnit").value;
+    const R_print = R_Unit;
+
 
     let R = parseFloat(document.getElementById("R").value);
 
@@ -198,7 +200,7 @@ function Explanation() {
         <li>Frequency (\\( f \\)): <span class="highlight">${f_dB} MHz</span></li>
         <li>Transmit Antenna Gain (\\( G_t \\)): <span class="highlight">${Gt_dB.toFixed(2)} dB</span></li>
         <li>Receive Antenna Gain (\\( G_r \\)): <span class="highlight">${Gr_dB.toFixed(2)} dB</span></li>
-        <li>Data Rate (\\( R \\)): <span class="highlight">${R.toFixed(2)} ${R_Unit} | ${R_dB} dB</span></li>
+        <li>Data Rate (\\( R \\)): <span class="highlight">${R.toFixed(2)} ${R_print} | ${R_dB} dB</span></li>
         <li>Antenna Feed Line Loss (\\( L_f \\)): <span class="highlight">${Lf_dB.toFixed(2)} dB</span></li>
         <li>Other Losses (\\( L_o \\)): <span class="highlight">${Lo_dB.toFixed(2)} dB</span></li>
         <li>Fade Margin (\\( M \\)): <span class="highlight">${M_dB.toFixed(2)} dB</span></li>
