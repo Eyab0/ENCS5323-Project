@@ -98,7 +98,7 @@ function askInput(value, unit) {
 
 function calculateTransmitPower() {
     const k_dB = -228.6;  // Boltzmann's constant in dB
-    const T_dB = 10 * Math.log10(290);  // Noise temperature in dB
+    // const T_dB = 10 * Math.log10(290);  // Noise temperature in dB
     const EbN0_dB = jsonData[document.getElementById('modulation-select').value][document.getElementById('ber-select').value];
     // const R_dB = 10 * Math.log10(parseFloat(document.getElementById("R").value) * 1000);  // Data rate in dB
 
@@ -111,6 +111,7 @@ function calculateTransmitPower() {
     const M_dB = askInput(document.getElementById("M").value, document.getElementById("MUnit").value);  // Fade margin
     const Ar_dB = askInput(document.getElementById("Ar").value, document.getElementById("ArUnit").value);  // Receiver amplifier gain
     const Nf_dB = askInput(document.getElementById("Nf").value, document.getElementById("NfUnit").value);  // Noise figure
+    const T_dB = askInput(document.getElementById("T").value, document.getElementById("TUnit").value);  // Noise figure
     const link_margin_dB = askInput(document.getElementById("link_margin").value, document.getElementById("link_marginUnit").value);  // Link margin
 
 
@@ -164,6 +165,8 @@ function Explanation() {
 
 
     const R_Unit = document.getElementById("RUnit").value;
+    const R_print = R_Unit;
+
 
     let R = parseFloat(document.getElementById("R").value);
 
@@ -197,7 +200,7 @@ function Explanation() {
         <li>Frequency (\\( f \\)): <span class="highlight">${f_dB} MHz</span></li>
         <li>Transmit Antenna Gain (\\( G_t \\)): <span class="highlight">${Gt_dB.toFixed(2)} dB</span></li>
         <li>Receive Antenna Gain (\\( G_r \\)): <span class="highlight">${Gr_dB.toFixed(2)} dB</span></li>
-        <li>Data Rate (\\( R \\)): <span class="highlight">${R.toFixed(2)} ${R_Unit} | ${R_dB} dB</span></li>
+        <li>Data Rate (\\( R \\)): <span class="highlight">${R.toFixed(2)} ${R_print} | ${R_dB} dB</span></li>
         <li>Antenna Feed Line Loss (\\( L_f \\)): <span class="highlight">${Lf_dB.toFixed(2)} dB</span></li>
         <li>Other Losses (\\( L_o \\)): <span class="highlight">${Lo_dB.toFixed(2)} dB</span></li>
         <li>Fade Margin (\\( M \\)): <span class="highlight">${M_dB.toFixed(2)} dB</span></li>
