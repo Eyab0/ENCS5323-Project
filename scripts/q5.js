@@ -20,7 +20,6 @@ function Init() {
     Subscribers = parseFloat(document.getElementById('Subscribers').value);
     H = parseFloat(document.getElementById('H').value) * TimeUnitMeasure('H');
     Lambda = parseFloat(document.getElementById('Lambda').value) / TimeUnitMeasure('Lambda');
-    TrunkingSystem = parseFloat(document.getElementById('TrunkingSystem').value);
     QoS = parseFloat(document.getElementById('QoS').value);
     SIR = Math.pow(10, parseFloat(document.getElementById('SIR').value) / 10);
     D0 = parseFloat(document.getElementById('D0').value);
@@ -29,8 +28,23 @@ function Init() {
     ReceiverSensitivityUnit = document.getElementById('ReceiverSensitivityUnit').value[0];
     ReceiverSensitivity = parseFloat(document.getElementById('ReceiverSensitivity').value) * (ReceiverSensitivityUnit === 'm' ? 1e-3 : ReceiverSensitivityUnit === 'μ' ? 1e-6 : ReceiverSensitivityUnit === 'n' ? 1e-9 : 1);
 
+    const positiveInput = Boolean(TimeSlotsPerCarrier>=0 && CityArea>=0 && Subscribers>=0 && H>=0 
+        && Lambda >=0 && QoS>=0 && D0>=0 && PathLossExponent>=0 && ReceiverSensitivity>=0 && !isNaN(SIR) && !isNaN(P0));
+    
+    if(positiveInput)
+        Calculate();
+    else{
+        document.getElementById('MaximumDistanceAnswer').innerText = '';
+        document.getElementById('MaximumCellSize').innerHTML = '';
+        document.getElementById('NumberOfCells').innerHTML = '';
+        document.getElementById('TrafficLoadSystem').innerHTML = '';
+        document.getElementById('TrafficLoadCell').innerHTML = '';
+        document.getElementById('NumberOfCellsInEachCluster').innerHTML = '';
+        document.getElementById('MinNumberOfCarriers').innerHTML = '';
+        document.getElementById('MinNumberOfCarriersNewQoS').innerHTML = '';
 
-    Calculate();
+        document.getElementById('ErrorDisplay').innerText = "There Should be no Negative or Empty Values !";
+    }
 }
 
 function MaximumDistance() {
@@ -103,19 +117,6 @@ function erlangB(E, C) {
     return numerator / denominator;
 }
 
-function erlangC(E, C) {
-    if (E >= C) {
-        return 1; // If traffic load is greater than or equal to the number of channels, all calls will be queued
-    }
-    let sum = 0;
-    for (let k = 0; k < C; k++) {
-        sum += Math.pow(E, k) / factorial(k);
-    }
-    let numerator = Math.pow(E, C) / factorial(C) * (C / (C - E));
-    let denominator = sum + numerator;
-    return numerator / denominator;
-}
-
 function findChannels(E, QoS) {
     let C = 1;
     while (true) {
@@ -127,6 +128,8 @@ function findChannels(E, QoS) {
 }
 
 function Calculate() {
+    document.getElementById('ErrorDisplay').innerText = '';
+
     document.getElementById('MaximumDistanceAnswer').innerText = "Maximum distance between transmitter and receiver for reliable communication = " + MaximumDistance() + " m";
     document.getElementById('MaximumCellSize').innerHTML = "Maximum cell size assuming hexagonal cells = " + MaximumCellSize() + " m&sup2";
     document.getElementById('NumberOfCells').innerHTML = "The number of cells in the service area = " + NumberOfCellsServiceArea();

@@ -14,6 +14,11 @@ document.getElementById("throughputForm").addEventListener("submit", function (e
     if (isNaN(BW) || isNaN(tau) || isNaN(frameRate) || isNaN(frameSize)) {
         return;
     }
+    const positiveInput = Boolean(BW>=0 && tau>=0 && frameSize>=0 && frameRate>=0);
+
+    if(!positiveInput)
+        alert('There should be no begative values !');
+    else{
 
     // Convert input values to appropriate units
     let BW_bps;
@@ -115,6 +120,7 @@ document.getElementById("throughputForm").addEventListener("submit", function (e
         "Unslotted Nonpersistent CSMA Throughput: <strong>" + throughput_unslotted_percentage.toFixed(2) + " %</strong><br>" +
         "Slotted Nonpersistent CSMA Throughput: <strong>" + throughput_nonpersistent_percentage.toFixed(2) + " %</strong><br>" +
         "Slotted 1-persistent CSMA Throughput: <strong>" + throughput_one_persistent_percentage.toFixed(2) + " %</strong><br>";
+}
 });
 
 

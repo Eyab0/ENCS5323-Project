@@ -28,7 +28,7 @@ function ErrorDisplay(isPositive, isModulation2Exponent, isSpacingDivisbleByBand
     var fullError = "";
 
     if (!isPositive)
-        fullError += 'There Should be no Negative Values !';
+        fullError += 'There Should be no Negative or Empty Values !';
     if (!isModulation2Exponent)
         fullError += '\nThe Modulation Bits Value Should be a 2 Exponent';
     if (!isSpacingDivisbleByBandwidth)
@@ -74,10 +74,10 @@ function MaximumTransitionRate() {
 
 function Calculate() {
     document.getElementById('ErrorDisplay').innerText = '';
-    document.getElementById('BitsPerResourceBlockAnswer').innerText = "Bits Per Resource Block = " + BitsPerResourceElement();
-    document.getElementById('BitsPerOFDMAnswer').innerText = "Bits Per OFDM Symbol = " + BitsPerOFDMSymbol();
-    document.getElementById('BitsPerOFDMResourceBlockAnswer').innerText = "Bits Per OFDM Resource Block = " + BitsPerOFDMResourceBlock();
-    document.getElementById('MaximumTransitionRate').innerText = "Maximum Transition Rate for " +ParallelBlocks+ " Parallel Resource Block(s) = " + MaximumTransitionRate();
+    document.getElementById('BitsPerResourceBlockAnswer').innerText = "Bits Per Resource Block = " + BitsPerResourceElement() + " bits";
+    document.getElementById('BitsPerOFDMAnswer').innerText = "Bits Per OFDM Symbol = " + BitsPerOFDMSymbol() + " bits";
+    document.getElementById('BitsPerOFDMResourceBlockAnswer').innerText = "Bits Per OFDM Resource Block = " + BitsPerOFDMResourceBlock() + " bits";
+    document.getElementById('MaximumTransitionRate').innerText = "Maximum Transition Rate for " +ParallelBlocks+ " Parallel Resource Block(s) = " + MaximumTransitionRate() + " bits/sec";
 }
 
 function Explaination() {

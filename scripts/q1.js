@@ -22,7 +22,7 @@ function ErrorDisplay(validInput, IsInterleaver2Exponent) {
     if (!IsInterleaver2Exponent)
         fullError += 'The Interleaver Value Should be a 2 Exponent';
     if (!validInput)
-        fullError += '\nThere Should be no Negative Values !';
+        fullError += '\nThere Should be no Negative or Empty Values !';
 
     document.getElementById('ErrorDisplay').innerText = fullError;
 }
