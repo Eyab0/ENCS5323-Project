@@ -98,7 +98,7 @@ function askInput(value, unit) {
 
 function calculateTransmitPower() {
     const k_dB = -228.6;  // Boltzmann's constant in dB
-    const T_dB = 10 * Math.log10(290);  // Noise temperature in dB
+    // const T_dB = 10 * Math.log10(290);  // Noise temperature in dB
     const EbN0_dB = jsonData[document.getElementById('modulation-select').value][document.getElementById('ber-select').value];
     // const R_dB = 10 * Math.log10(parseFloat(document.getElementById("R").value) * 1000);  // Data rate in dB
 
@@ -111,6 +111,7 @@ function calculateTransmitPower() {
     const M_dB = askInput(document.getElementById("M").value, document.getElementById("MUnit").value);  // Fade margin
     const Ar_dB = askInput(document.getElementById("Ar").value, document.getElementById("ArUnit").value);  // Receiver amplifier gain
     const Nf_dB = askInput(document.getElementById("Nf").value, document.getElementById("NfUnit").value);  // Noise figure
+    const T_dB = askInput(document.getElementById("T").value, document.getElementById("TUnit").value);  // Noise figure
     const link_margin_dB = askInput(document.getElementById("link_margin").value, document.getElementById("link_marginUnit").value);  // Link margin
 
 
@@ -146,7 +147,7 @@ function Explanation() {
 
 
     const k_dB = -228.6;  // Boltzmann's constant in dB
-    const T_dB = 10 * Math.log10(290);  // Noise temperature in dB
+    // const T_dB = 10 * Math.log10(290);  // Noise temperature in dB
     const EbN0_dB = jsonData[document.getElementById('modulation-select').value][document.getElementById('ber-select').value];
     // const R_dB = 10 * Math.log10(parseFloat(document.getElementById("R").value) * 1000);  // Data rate in dB
 
@@ -159,35 +160,35 @@ function Explanation() {
     const M_dB = askInput(document.getElementById("M").value, document.getElementById("MUnit").value);  // Fade margin
     const Ar_dB = askInput(document.getElementById("Ar").value, document.getElementById("ArUnit").value);  // Receiver amplifier gain
     const Nf_dB = askInput(document.getElementById("Nf").value, document.getElementById("NfUnit").value);  // Noise figure
+    const T_dB = askInput(document.getElementById("T").value, document.getElementById("TUnit").value);  // Noise figure
     const link_margin_dB = askInput(document.getElementById("link_margin").value, document.getElementById("link_marginUnit").value);  // Link margin
 
 
     const R_Unit = document.getElementById("RUnit").value;
 
-    let R_dB = parseFloat(document.getElementById("R").value);
+    let R = parseFloat(document.getElementById("R").value);
 
     switch (R_Unit) {
         case 'Kbps':
-            R_dB = R_dB * 1e3;
+            R = R * 1e3;
             break;
         case 'Mbps':
-            R_dB = R_dB * 1e6;
+            R = R * 1e6;
             break;
         case 'Gbps':
-            R_dB = R_dB * 1e9;
+            R = R * 1e9;
             break;
         default:
-            R_dB = R_dB * 1e3; // Default to Kbps
+            R = R * 1e3; // Default to Kbps
     }
 
-    R_dB = 10 * Math.log10(R_dB);
+    let R_dB = 10 * Math.log10(R);
 
     const power_received = M_dB + k_dB + T_dB + Nf_dB + R_dB + EbN0_dB;  // Noise floor in dB
 
     const Pt_dB = power_received + Lp_dB - Gt_dB - Gr_dB + Lf_dB + Lo_dB - Ar_dB + link_margin_dB;
 
-
-    // document.getElementById("result").innerHTML = "Transmit Power (Pt) = " + Pt_dB.toFixed(2) + " dB";
+    const pt_wtt = dbToLinear(Pt_dB)
 
 
     let explanation = `
