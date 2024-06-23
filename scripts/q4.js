@@ -17,7 +17,7 @@ document.getElementById("throughputForm").addEventListener("submit", function (e
     const positiveInput = Boolean(BW>=0 && tau>=0 && frameSize>=0 && frameRate>=0);
 
     if(!positiveInput)
-        alert('There should be no begative values !');
+        alert('There should be no negative values !');
     else{
 
     // Convert input values to appropriate units

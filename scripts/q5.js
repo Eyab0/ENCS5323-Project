@@ -43,7 +43,7 @@ function Init() {
         document.getElementById('MinNumberOfCarriers').innerHTML = '';
         document.getElementById('MinNumberOfCarriersNewQoS').innerHTML = '';
 
-        document.getElementById('ErrorDisplay').innerText = "There Should be no Negative or Empty Values !";
+        document.getElementById('ErrorDisplay').innerText = "There Should be no Negative (except values in dB) or Empty Values !";
     }
 }
 
